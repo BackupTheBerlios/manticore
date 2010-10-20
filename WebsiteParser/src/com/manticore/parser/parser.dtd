@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/parser.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE sites SYSTEM "parser.dtd">
+
+    <sites>
+    ...
+    </sites>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT sites (site)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT site (field|parameter)*>
+<!ATTLIST site
+    xpath CDATA #IMPLIED
+    urlStr CDATA #IMPLIED
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT parameter EMPTY>
+<!ATTLIST parameter
+    key CDATA #IMPLIED
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT field (locale_out|locale_in|type|pattern|xpath|description)*>
+<!ATTLIST field
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT description EMPTY>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT xpath (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT pattern (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT type (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT locale_in (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT locale_out EMPTY>

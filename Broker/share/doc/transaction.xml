@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- page: 'otcQuoteOrder' -->
+<!-- pageHeader.inc START -->
+<!-- pageHead.inc START -->
+<!--
+Version: flatex_2.6.0_R129
+Date: 15.10.2009
+Time: 13:36:05
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml" version="-//W3C//DTD HTML 4.01 Transitional//EN">
+  <head>
+    <title>flatex</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/paperinfo.css"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <script type="text/javascript" language="javascript" src="script/javascripts.js"><![CDATA[]]></script>
+    <script type="text/javascript" language="javascript"><![CDATA[
+function runInOnlineBankingIFrame()
+{
+    var iFrameName = "onlineBankingIFrame";
+
+	for(var i = 0; i < top.frames.length; i++)
+	{
+	   if ( top.frames[i].location == self.location &&
+	        top.frames[i].name == iFrameName )
+	   {
+	       return true;
+	   }
+	}
+
+	return false;
+}
+
+function getMode()
+{
+    if ( runInOnlineBankingIFrame() )
+    {
+        return "portal";
+    }
+    else
+    {
+        return "popup";
+    }
+}
+
+function writePortalModeImage()
+{
+    var imageTag = "<img src=\"setPortalMode?mode=" + getMode() + "\" width=\"1px\" height=\"1px\">";
+    document.write( imageTag );
+}
+
+function showPaperInfoIfNoIFrame()
+{
+
+    if ( !runInOnlineBankingIFrame() )
+    {
+        if ( document.getElementById( "paperInfo" ) != null )
+        {
+            document.getElementById("paperInfo").style.display = "inline";
+        }
+        if ( document.getElementById("topLogo") != null )
+            document.getElementById("topLogo").style.display = "block";
+    }
+    
+	
+    
+    
+}
+
+function resizeIFrameIfPortalMode()
+{
+    if ( runInOnlineBankingIFrame() )
+    {
+        iframeResizePipe();
+    }
+}
+
+function resizeProgessAnimation()
+{
+
+    if ( document.getElementById("progressDisplay") == null )
+        return;
+
+    if ( runInOnlineBankingIFrame() )
+    {
+        document.getElementById("progressDisplay").style.left = "10px";
+        document.getElementById("progressDisplay").style.top = "0px";
+    }
+    else
+    {
+        document.getElementById("progressDisplay").style.left = "480px";
+        document.getElementById("progressDisplay").style.top = "20px";
+    }
+}
+
+function openPortalMemberArea()
+{
+	
+
+		var portalUrl="/onlinebanking-flatex/navigationMenuFormAction.do?method=openPortalMemberArea";
+	
+		if( window.opener != null ) 
+		{
+			portal = window.opener;
+			portal.location.href=portalUrl;
+			portal.focus();
+		}
+		else
+		{
+			portal = window.open(portalUrl,"flatex");
+			portal.focus();
+		}
+	
+}
+
+]]></script>
+    <script type="text/javascript" language="javascript"><![CDATA[
+    
+  ]]></script>
+  </head>
+  <body onload="resizeIFrameIfPortalMode(); resizeProgessAnimation();"> 
+    <script type="text/javascript" language="javascript"><![CDATA[
+  function getWindowDimension()
+  {
+    if (window.innerHeight && window.innerWidth)
+      return window.innerWidth + "x" + window.innerHeight;
+    else if (document.body && document.body.clientHeight && document.body.clientWidth)
+      return document.body.clientWidth + "x" + document.body.clientHeight;
+    else
+      return "0x0";
+  }
+ 
+  function getReferer()
+  {
+    var actual=document.location;
+    var referer=document.referrer;
+    if (actual && actual.host && referer) // actual.host=konto.flatex.de
+    {
+      // now build the host from the referer
+      // URI https://konto.flatex.de:8888/onlinebanking-flatex
+      var refererSplitted=referer.split("/");
+      // in [0] -> protocol (https)
+      // in [1] -> '' (//)
+      // in [2] -> host
+      if (refererSplitted.length >= 1 && refererSplitted[2] != actual.host)
+        return encodeURIComponent(referer);
+    }
+ 
+    return "0";
+  }
+ 
+  var baseUrl = "https://flatex01.webtrekk.net/";
+  var customerId= "370212450674777"; // Customer ID (FIX)
+  var version= "206";  // Version des Webtrekk-Pixels (FIX)
+  var pageName ="";
+  
+  
+    pageName = "de.wfiliale.otcQuoteOrder"; // Content-ID
+  
+  
+  var javascriptEnabled= "1"; // Javascript aktiviert (0 für deaktiviert)
+  var desktopResolution = screen.width + "x" + screen.height; // Bildschirmauflösung
+  var colorDepth = screen.colorDepth; // Farbtiefe in Bit
+  var cookiesEnabled = navigator.cookieEnabled ? "1":"0"; // Cookies eingeschaltet (0 für deaktiviert)
+  var timestamp = new Date().getTime(); // Timestamp des Client 
+  var referer = getReferer(); // kein Referrer (ansonsten die codierte URL) (wenn er von extern wie Depotliga etc. kommt die Codierte URL)
+  var windowDimension= getWindowDimension(); // innere Auflösung des Browserfensters
+  var javaEnabled= navigator.javaEnabled() ? "1":"0"; // Java installiert (0 für nicht vorhanden)
+ 
+  var url =baseUrl + customerId + "/wt.pl";
+  url += "?p=" + version;
+  url += "," + pageName;
+  url += "," + javascriptEnabled;
+  url += "," + desktopResolution;
+  url += "," + colorDepth;
+  url += "," + cookiesEnabled;
+  url += "," + timestamp;
+  url += "," + referer;
+  url += "," + windowDimension;
+  url += "," + javaEnabled;
+ 
+  document.write("<img src=\"" + url + "\" height=\"1\" width=\"1\" alt=\"\" style=\"display:none;visibility:hidden;position:absolute;\">");
+]]></script>  
+    <div class="HeaderArea">
+      <img id="topLogo" src="images/topLogo.png" style="display:none;" alt=""/>
+    </div>  
+    <div id="progressDisplay" style="position:absolute; z-index:10; left:10px; top:0px; visibility: hidden;"> 
+      <img border="0" src="images/inProgressAnimation.gif" alt=""/> 
+    </div>  
+    <div id="paperInfo" style="position:absolute; z-index:0; left:17px; top:18px; display: none"> 
+      <form enctype="application/x-www-form-urlencoded" method="GET" name="paperInfoForm" action="/onlinebanking-flatex/paperInfoFormAction.do" onsubmit="openExternalPopup(this.action +'?doPopulate=true&amp;searchString.text='+this['searchString.text'].value+'&amp;searchButton.x=1&amp;searchButton.y=1',1034,720,'ratesPopup'); return false;">
+        <input type="hidden" name="doPopulate" value="true"/>  
+        <table>
+          <tr>
+            <td colspan="1" rowspan="1" style="padding-left:0;"> 
+              <input maxlength="256" type="text" class="" onclick="if(this.value=='ISIN, WKN, Symbol')this.value='';" style="height: 19px; width: 123px;font-size: 12px;color:black;border:1px solid #a8a8a8;margin:0;padding:0;" name="searchString.text" size="20" value="ISIN, WKN, Symbol"/> 
+            </td>
+            <td colspan="1" rowspan="1" style="padding-left:8px;"> 
+              <input type="image" alt="suchen" onclick=";return clickOnce();" title="Wertpapier suchen" name="searchButton" src="images/btnGo2.gif"/> 
+            </td>
+          </tr>
+        </table> 
+      </form> 
+    </div>  
+    <script type="text/javascript" language="javascript"><![CDATA[
+    showPaperInfoIfNoIFrame();
+]]></script>  
+    <!-- pageHead.inc END -->  
+    <table summary="" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="left" colspan="1" rowspan="1" class="TopMenuArea"> 
+          <form enctype="application/x-www-form-urlencoded" method="GET" name="navigationMenuForm" action="/onlinebanking-flatex/navigationMenuFormAction.do"> 
+            <table summary="" cellspacing="0" cellpadding="0" border="0">
+              <tr>
+                <td colspan="1" rowspan="1" style="width:772px"> 
+                  <table summary="" cellspacing="0" cellpadding="0" border="0" style="width:772px">
+                    <tr>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabLeft"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabCenter" onmouseover="this.className='TopMenuInactiveTabCenterMouseOver'" onmouseout="this.className='TopMenuInactiveTabCenter'" onclick="window.location.href='navigationMenuFormAction.do?menuId=accountManagementMenu'">Konto/Depot</td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabRight"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuActiveTabLeft">
+                        <img alt="" src="images/bgTopMenu1TabLeft.png"/>
+                      </td>
+                      <td colspan="1" rowspan="1" class="TopMenuActiveTabCenter" onclick="window.location.href='navigationMenuFormAction.do?menuId=brokerageTransactionsMenu'">Wertpapierhandel</td>
+                      <td colspan="1" rowspan="1" class="TopMenuActiveTabRight">
+                        <img alt="" src="images/bgTopMenu1TabRight.png"/>
+                      </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabLeft"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabCenter" onmouseover="this.className='TopMenuInactiveTabCenterMouseOver'" onmouseout="this.className='TopMenuInactiveTabCenter'" onclick="window.location.href='navigationMenuFormAction.do?menuId=cfdMainMenu'">CFD</td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabRight"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabLeft"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabCenter" onmouseover="this.className='TopMenuInactiveTabCenterMouseOver'" onmouseout="this.className='TopMenuInactiveTabCenter'" onclick="window.location.href='navigationMenuFormAction.do?menuId=documentsMainMenu'">Archiv</td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabRight"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabLeft"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabCenter" onmouseover="this.className='TopMenuInactiveTabCenterMouseOver'" onmouseout="this.className='TopMenuInactiveTabCenter'" onclick="window.location.href='navigationMenuFormAction.do?menuId=pinTanManagementMenu'">Einstellungen</td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabRight"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabLeft"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabCenter" onmouseover="this.className='TopMenuInactiveTabCenterMouseOver'" onmouseout="this.className='TopMenuInactiveTabCenter'" onclick="window.location.href='navigationMenuFormAction.do?menuId=myFlatexMainMenu'">myFlatex</td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabRight"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuInactiveTabRight"> </td>
+                      <!-- <td><img alt="" src="images/bgTopMenu1Middle.png"></td> -->
+                      <td colspan="1" rowspan="1" style="background-image:url(images/bgTopMenu1MiddleInactive.png);width:99%;text-align:right;font-size:12px;">
+                        <a shape="rect" class="TopMenuExtraLink" href="overviewFormAction.do">Übersicht</a> 
+                        <img src="images/circle.gif"/> 
+                        <a shape="rect" class="TopMenuExtraLink" href="https://www.flatex.de/kontakt/kontaktanfrage.html" target="_blank">Kontakt</a> 
+                        <img src="images/circle.gif"/> 
+                        <a shape="rect" class="TopMenuExtraLink" href="headerAreaFormAction.do?method=logout">Abmelden</a>
+                      </td>
+                      <td colspan="1" rowspan="1" style="background-image:url(images/transparent.gif)"> </td>
+                    </tr>
+                  </table> 
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="TopMenuSecondLevelArea"> 
+                  <table summary="" cellspacing="0" cellpadding="0" border="0" style="width:772px">
+                    <tr>
+                      <td colspan="1" rowspan="1" style="background-image:url(images/bgTopMenu2TabLeft.png)"> </td>
+                      <td colspan="1" rowspan="1" class="TopMenuSecondLevelSelected" onclick="window.location.href='navigationMenuFormAction.do?menuId=paperOrderMenu'">Wertpapierhandel</td>
+                      <td colspan="1" rowspan="1" class="TopMenuSecondLevelSpacer"> 
+                        <img src="images/circle.gif"/> 
+                      </td>
+                      <td colspan="1" rowspan="1" class="TopMenuSecondLevel" onmouseover="this.className='TopMenuSecondLevelMouseOver'" onmouseout="this.className='TopMenuSecondLevel'" onclick="window.location.href='navigationMenuFormAction.do?menuId=orderBookMenu'">Orderbuch</td>
+                      <td colspan="1" rowspan="1" class="TopMenuSecondLevelSpacer"> 
+                        <img src="images/circle.gif"/> 
+                      </td>
+                      <td colspan="1" rowspan="1" class="TopMenuSecondLevel" onmouseover="this.className='TopMenuSecondLevelMouseOver'" onmouseout="this.className='TopMenuSecondLevel'" onclick="window.location.href='navigationMenuFormAction.do?menuId=savingsPlanListMenu'">Spar-/Entnahmeplan</td>
+                      <td colspan="1" rowspan="1" class="TopMenuSecondLevelSpacer"> 
+                        <img src="images/circle.gif"/> 
+                      </td>
+                      <td colspan="1" rowspan="1" class="TopMenuSecondLevel" onmouseover="this.className='TopMenuSecondLevelMouseOver'" onmouseout="this.className='TopMenuSecondLevel'" onclick="window.location.href='navigationMenuFormAction.do?menuId=paperIssueMenu'">Neuemissionen</td>
+                      <td colspan="1" rowspan="1" class="TopMenuSecondLevelSpacer"> 
+                        <img src="images/circle.gif"/> 
+                      </td>
+                      <td colspan="1" rowspan="1" class="TopMenuSecondLevel" onmouseover="this.className='TopMenuSecondLevelMouseOver'" onmouseout="this.className='TopMenuSecondLevel'" onclick="window.location.href='navigationMenuFormAction.do?menuId=eclipseTraderConfigurationMenu'">flatex Trader</td>
+                      <td colspan="1" rowspan="1" style="background-image:url(images/bgTopMenu2Middle.png);width:99%;text-align:right"> </td>
+                      <td colspan="1" rowspan="1" style="background-image:url(images/bgTopMenu2TabRight.png)"> </td>
+                    </tr>
+                  </table> 
+                </td>
+              </tr>
+            </table> 
+          </form> 
+        </td>
+      </tr>
+    </table>  
+    <table summary="" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td colspan="1" rowspan="1" valign="top" class="MiddleArea"> 
+          <table summary="" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td colspan="1" rowspan="1" valign="top" class="DataArea"> 
+                <table summary="" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td colspan="3" rowspan="1" class="DataAreaExternalContentAside"></td>
+                  </tr>
+                  <tr>
+                    <!-- left content area -->
+                    <td colspan="1" rowspan="2" class="DataAreaExternalContentAside"></td>
+                    <td colspan="1" rowspan="1" valign="top"> 
+                      <!-- pageHeader.inc END -->  
+                      <!-- dataAreaHeader.inc START -->  
+                      <table summary="" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td colspan="1" rowspan="1" valign="top" class="DataAreaContent"> 
+                            <table summary="" cellpadding="0" cellspacing="0" border="0" style="width:100%">
+                              <tr>
+                                <td colspan="1" rowspan="1" valign="top"> 
+                                  <table summary="" cellpadding="0" cellspacing="0" border="0" style="width:100%">
+                                    <tr>
+                                      <td colspan="1" rowspan="1" class="DataAreaTitle">Direkthandel</td>
+                                      <td colspan="1" rowspan="1" class="DataAreaWizard"> 
+                                        <div id="wizard">1. Wertpapier wählen und Order eingeben  2. Prüfen &amp; Einreichen 
+                                          <span class="wizardSelected">3. Bestätigung</span>  
+                                        </div> 
+                                      </td>
+                                    </tr>
+                                  </table> 
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colspan="1" rowspan="1" valign="top"> 
+                                  <!-- dataAreaHeader.inc END -->  
+                                  <form enctype="multipart/form-data" method="POST" name="otcQuoteOrderForm" action="/onlinebanking-flatex/otcQuoteOrderFormAction.do?doPopulate=true"> 
+                                    <!-- formAreaHeader.inc START -->  
+                                    <table summary="" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                      <tr>
+                                        <td colspan="1" rowspan="1"> 
+                                          <!-- formAreaHeader.inc END -->  
+                                          <!-- accoutSelection.inc START -->  
+                                          <table class="accountSelectionArea" summary="" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                              <td colspan="1" rowspan="1" class="accountSelectionTopLeft"/>
+                                              <td colspan="1" rowspan="1" class="accountSelectionTopCenter"/>
+                                              <td colspan="1" rowspan="1" class="accountSelectionTopRight"/>
+                                            </tr>
+                                            <tr>
+                                              <td colspan="1" rowspan="1" class="accountSelectionLeftMiddle"/>
+                                              <td colspan="1" rowspan="1" class="accountSelectionCenter"> 
+                                                <table summary="" border="0" cellspacing="0" cellpadding="0">
+                                                  <tr>
+                                                    <td colspan="1" rowspan="1" class="accountSelection"> 
+                                                      <table summary="" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                          <td colspan="1" rowspan="1" class="accountLabel">Aktuelles Depot:</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td colspan="1" rowspan="1"> 
+                                                            <select disabled="disabled" size="1" class="FormAreaComboBoxDisabled" onchange="submit()" name="accountSelectionForm.accountSelection.selectedItemIndex">
+                                                              <option selected="selected" value="0">1001422026 - Depot (EUR), Andreas Reichel  </option>
+                                                            </select> 
+                                                          </td>
+                                                        </tr>
+                                                      </table> 
+                                                    </td>
+                                                    <td colspan="1" rowspan="1" class="accountDetails"> 
+                                                      <table class="deposit" summary="" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                                        <tr>
+                                                          <td colspan="1" rowspan="1" class="label">Depotbestand:</td>
+                                                          <td colspan="1" rowspan="1" class="value"> 
+                                                            <span class="PositiveAmount">1.649,50 EUR</span> 
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td colspan="1" rowspan="1" class="label">Gebuchter Saldo 
+                                                            <a shape="rect" href="#" target="_blank" onclick="openPopup('accountBalanceHintPopup.jsp', 600, 350 ); return false">
+                                                              <img src="images/iconSmallQuestionMark.gif" alt="Hinweis"/>
+                                                            </a> :
+                                                          </td>
+                                                          <td colspan="1" rowspan="1" class="value"> 
+                                                            <span class="PositiveAmount">1.670,33 EUR</span> 
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td colspan="1" rowspan="1" class="label">Verfügbar:</td>
+                                                          <td colspan="1" rowspan="1" class="value"> 
+                                                            <span class="PositiveAmount">1.670,33 EUR</span> 
+                                                          </td>
+                                                        </tr>
+                                                      </table> 
+                                                    </td>
+                                                  </tr>
+                                                </table> 
+                                              </td>
+                                              <td colspan="1" rowspan="1" class="accountSelectionRightMiddle"/>
+                                            </tr>
+                                            <tr>
+                                              <td colspan="1" rowspan="1" class="accountSelectionBottomLeft"/>
+                                              <td colspan="1" rowspan="1" class="accountSelectionBottomCenter"/>
+                                              <td colspan="1" rowspan="1" class="accountSelectionBottomRight"/>
+                                            </tr>
+                                          </table>  
+                                          <!-- accoutSelection.inc END -->  
+                                          <!-- messages.inc START -->  
+                                          <!-- sendResult.inc START -->  
+                                          <div class="DataAreaVerticalPadder"/>  
+                                          <div class="DataAreaSendSuccess">Die Wertpapierorder wurde ausgeführt. Die Details zur Ausführung können Sie im Orderbuch einsehen.</div>  
+                                          <!-- sendResult.inc END -->  
+                                          <!-- serverErrors.inc START -->  
+                                          <!-- serverErrors.inc END -->  
+                                          <!-- instructions.inc START -->  
+                                          <div class="DataAreaVerticalPadder"/>  
+                                          <div class="DataAreaInformation">Sie können sich den hier dargestellten Beleg auch in einem druckbaren Format anzeigen lassen.</div>  
+                                          <!-- instructions.inc END -->  
+                                          <!-- messages.inc END -->  
+                                          <div class="DataAreaVerticalPadder"/>  
+                                          <!-- formAreaStart.inc START -->  
+                                          <div class="DataAreaVerticalPadder"/>  
+                                          <table summary="" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                              <td colspan="1" rowspan="1" class="FormArea"> 
+                                                <table summary="" cellpadding="0" cellspacing="0" border="0">
+                                                  <tr>
+                                                    <td colspan="1" rowspan="1" class="FormTopLeft">
+                                                      <img src="images/bgFormTopLeft.gif"/>
+                                                    </td>
+                                                    <td colspan="1" rowspan="1" class="FormTopCenter"/>
+                                                    <td colspan="1" rowspan="1" class="FormTopRight">
+                                                      <img src="images/bgFormTopRight.gif"/>
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="1" rowspan="1" class="FormLeftMiddle"/>
+                                                    <td colspan="1" rowspan="1" class="FormCenter"> 
+                                                      <!-- begin: inner Form Area -->  
+                                                      <table summary="" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                          <td colspan="1" rowspan="1"> 
+                                                            <!-- begin: form control area -->  
+                                                            <!-- formAreaStart.inc END -->  
+                                                            <!-- paperOrderDetailsSubForm.inc START -->  
+                                                            <table summary="" cellpadding="0" cellspacing="0" border="0">
+                                                              <tr>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Depot</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">1001422026</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadderLarge"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Cashkonto</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">1001422019</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="7" rowspan="1" class="FormAreaVerticalPadder"/>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">ISIN</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">DE000DB41Q07</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadderLarge"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">WKN, Symbol</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">DB41Q0, 63LK</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Bezeichnung</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="5" rowspan="1" class="FormAreaField">DEUT.BANK WXXLP DAX</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="7" rowspan="1" class="FormAreaVerticalPadder"/>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Geschäftsart</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">Kauf</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadderLarge"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Stück/Nominal</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">
+                                                                  <span class="PositiveAmount">80,000 Stk.</span>
+                                                                </td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Limit</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">
+                                                                  <span class="PositiveAmount">16,9600 EUR</span>
+                                                                </td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadderLarge"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Gültig bis</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">bis auf weiteres</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Stoplimit</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">-</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadderLarge"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Handelshinweis</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">-</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Limitart</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">Limit</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadderLarge"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Orderzusatz</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">-</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="7" rowspan="1" class="FormAreaVerticalPadder"/>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Eingereicht am</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">22.10.2009 13:08:44</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadderLarge"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Status</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">ausgeführt</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="7" rowspan="1" class="FormAreaVerticalPadder"/>
+                                                              </tr>
+                                                              <tr>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Handelsort</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">Deutsche Bank AG (A40)</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadderLarge"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaFieldLeftLabel">Ordernummer</td>
+                                                                <td colspan="1" rowspan="1" class="FormAreaHorizontalPadder"/>
+                                                                <td colspan="1" rowspan="1" class="FormAreaField">22955714</td>
+                                                              </tr>
+                                                            </table>  
+                                                            <!-- paperOrderDetailsSubForm.inc END -->  
+                                                            <!-- formAreaEnd.inc START --> 
+                                                          </td>
+                                                          <!-- end: form control area -->
+                                                          <!-- formErrors.inc START -->
+                                                          <!-- formErrors.inc END -->
+                                                        </tr>
+                                                      </table> 
+                                                    </td>
+                                                    <!-- end: inner Form Area -->
+                                                    <td colspan="1" rowspan="1" class="FormRightMiddle"/>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="1" rowspan="1" class="FormBottomLeft">
+                                                      <img src="images/bgFormBottomLeft.gif"/>
+                                                    </td>
+                                                    <td colspan="1" rowspan="1" class="FormBottomCenter"/>
+                                                    <td colspan="1" rowspan="1" class="FormBottomRight">
+                                                      <img src="images/bgFormBottomRight.gif"/>
+                                                    </td>
+                                                  </tr>
+                                                </table> 
+                                              </td>
+                                            </tr>
+                                          </table>  
+                                          <!-- formAreaEnd.inc END -->  
+                                          <div class="DataAreaVerticalPadder"/>  
+                                          <div class="SingleLineItem"> 
+                                            <input type="image" alt="Zum Orderbuch wechseln" onclick="setHourglassVisible();;return clickOnce();" name="paperOrderListButton" src="images/btnOrderBook.gif"/> 
+                                          </div>  
+                                          <div class="SingleLineItem DataAreaLeftPadding"> 
+                                            <input type="image" alt="Zu den Depotpositionen wechseln" onclick="setHourglassVisible();;return clickOnce();" name="depositStatementButton" src="images/btnDepositStatement.gif"/> 
+                                          </div>  
+                                          <div class="SingleLineItem DataAreaLeftPadding"> 
+                                            <a shape="rect" href="#">
+                                              <img src="images/btnShowSlip.gif" alt="Beleg über die Order-Einreichung anzeigen" onclick="openPopup('otcQuoteOrderFormAction.do?method=showSlip', 600, 500 );return clickOnce();"/>
+                                            </a> 
+                                          </div>  
+                                          <div class="SingleLineItem DataAreaLeftPadding"> 
+                                            <input type="image" alt="Eine neue Order erstellen" onclick="setHourglassVisible();;return clickOnce();" name="additionalOrderButton" src="images/btnAdditionalOrder.gif"/> 
+                                          </div>  
+                                          <div class="SingleLineClear"/>  
+                                          <div class="DataAreaVerticalPadder"/>  
+                                          <div class="SingleLineItem"> 
+                                            <input type="image" alt="Gleiches Papier nochmal kaufen" onclick="setHourglassVisible();;return clickOnce();" title="Gleiches Papier nochmal kaufen" name="sameBuyOrderButton" src="images/btnSameBuyOrderBuy.gif"/> 
+                                          </div>  
+                                          <div class="SingleLineItem DataAreaLeftPadding"> 
+                                            <input type="image" alt="Gleiches Papier jetzt verkaufen" onclick="setHourglassVisible();;return clickOnce();" title="Gleiches Papier jetzt verkaufen" name="sameSellOrderButton" src="images/btnSameSellOrderBuy.gif"/> 
+                                          </div>  
+                                          <div class="SingleLineClear"/>  
+                                          <!-- formAreaFooter.inc START --> 
+                                        </td>
+                                      </tr>
+                                    </table>  
+                                    <!-- formAreaFooter.inc END --> 
+                                  </form>  
+                                  <!-- dataAreaFooter.inc START --> 
+                                </td>
+                              </tr>
+                            </table> 
+                          </td>
+                        </tr>
+                      </table>  
+                      <!-- dataAreaFooter.inc END -->  
+                      <!-- pageFooter.inc START --> 
+                    </td>
+                    <td colspan="1" rowspan="2" class="DataAreaExternalContentAside"/>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1" valign="top" class="DataAreaExternalContentAside"/>
+                  </tr>
+                </table> 
+              </td>
+            </tr>
+          </table> 
+        </td>
+      </tr>
+    </table>  
+    <script type="text/javascript" language="javascript"><![CDATA[
+      
+    ]]></script>  
+    <!-- hiddenIFrame.inc START -->  
+    <iframe frameborder="1" scrolling="auto" id="helper" src="blank.html" width="0" height="0" style="position : absolute;top : 0px; left : 0px; visibility: hidden; "></iframe>  
+    <script language="javascript" type="text/javascript"><![CDATA[<!--
+
+function iframeResizePipe()
+{
+    var height;
+    height = document.body.scrollHeight;
+    if ( !document.all )
+    {
+        height = document.body.offsetHeight;
+    }
+
+    var pipe = document.getElementById('helper');
+    pipe.src = 'https://www.flatex.de/fileadmin/templates/helper.html?height=' + height;
+}
+
+//-->]]></script>  
+    <!-- hiddenIFrame.inc END -->  
+    <script type="text/javascript"><![CDATA[
+writePortalModeImage();
+]]></script> 
+  </body>
+  <!-- pageFooter.inc END -->
+</html>

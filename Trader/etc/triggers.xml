@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE pages [
+	<!ELEMENT pages (page+)>
+	
+	<!ELEMENT pageset (set)+>
+	<!ATTLIST pageset
+		name		CDATA	#REQUIRED
+		url			CDATA	#REQUIRED
+		xpath		CDATA	#REQUIRED
+		regex		CDATA	#REQUIRED
+	>
+	<!ELEMENT set (#PCDATA)>
+	<!ATTLIST set
+		name		CDATA	#REQUIRED
+		urlsuffix	CDATA	#REQUIRED
+	>
+	
+	<!ELEMENT page (trigger)+>
+	<!ATTLIST page
+		name		ID		#REQUIRED
+		url 		CDATA 	#REQUIRED
+		urlsuffix 	CDATA 	""
+		>
+	
+	<!ELEMENT trigger (#PCDATA)>
+	<!ATTLIST trigger
+		name		ID		#REQUIRED
+		xpath		CDATA	#REQUIRED
+		regex		CDATA	""
+		width		CDATA	"60"
+		alignment	(0|1|2) "0"
+		>
+]>
+
+
+<pages>
+	<page name="Depotvergleich" url="http://www.happyyuppie.com/cgi-bin/de/search.pl?typnr=3&amp;string=" urlsuffix="">
+		<trigger name="Aktie" xpath="/html:html/html:body/html:center/html:center/html:table/html:tr[2]/html:td[1]/html:b/html:font"  width="120" alignment="0"/>
+		<trigger name="WKN" width="60" xpath="//html:td[.='WKN']/../following-sibling::html:tr/html:td[1]" alignment="2"/>
+		<trigger name='HSKfr' width="45" xpath="//html:td[.='Handelssignal:']/following-sibling::html:td"  regex="\D*(\d*)\D*" />
+	</page>
+	
+	<page name="HappyYuppieLangfristig" url="http://www.happyyuppie.com/cgi-bin/de/search.pl?typnr=4&amp;string=" urlsuffix="">
+		<trigger name='HSLfr' width="45" xpath="//html:td[.='Handelssignal:']/following-sibling::html:td"  regex="\D*(\d*)\D*" />
+		<trigger name="RK" width="45" xpath="//html:td[normalize-space(text())='Risikoklasse:']/following-sibling::html:td/html:font"  />
+		<trigger name="Vol" width="45" xpath="//html:td[contains(text(),'Volatilit')='true']/following-sibling::html:td/html:font"  />
+		<trigger name="RSt" width="45" alignment="1" xpath="//html:td[contains(text(),'Relative St')='true']/following-sibling::html:td/html:font"  />
+	</page>
+	
+	<!--
+	<page name="Comdirect" url="http://isht.comdirect.de/html/detail/main.html?sWkn=">
+		<trigger name="Preis" regex=""  width="90" alignment="2" xpath="/html:html/html:body/html:div[1]/html:div[1]/html:div/html:div/html:div/html:div/html:div/html:div[1]/html:p[2]/html:b" />
+		<trigger name="KGV" alignment="2" regex="" xpath="//html:p/html:span[@title='KGV (erwartet)']/following-sibling::html:b" />
+		<trigger name="DivR" alignment="2" regex="" xpath="//html:p/html:span[@title='Dividende (erwartet)']/following-sibling::html:b" />
+	</page> 
+	-->
+	<page name="Consors" url="https://www.cortalconsors.de/euroWebDe/-?$part=financeinfosHome.Desks.searchresult.content.searchresult.searchSTO&amp;$event=snapshot&amp;id_name=ISIN&amp;id="></page>
+    
+    <page name="ConsorsSnapshot" url="https://www.cortalconsors.de/Kurse-Maerkte/Aktien/Kurs-Snapshot/Kurs-Snapshot/">
+		<trigger  name="Preis" width="90" alignment="2"  regex="\D*([\d\,\.]*)\D?" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[1]/html:form[@id='SnapshotHeaderForm']/html:div/html:div[1]/html:strong" />
+        <trigger  name="PreisUnit" width="90" alignment="2"  regex="\D*[\d\,\.]*(\D*)" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[1]/html:form[@id='SnapshotHeaderForm']/html:div/html:div[1]/html:strong" />
+		<trigger  name="KGV" alignment="2" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[5]/html:div/html:div/html:div/html:table/html:tr[3]/html:td[2]" />
+		<trigger  name="KGV2" alignment="2" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[5]/html:div/html:div/html:div/html:table/html:tr[3]/html:td[3]" />
+		<trigger  name="KG3" alignment="2" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[5]/html:div/html:div/html:div/html:table/html:tr[3]/html:td[4]" />
+		<trigger  name="DIVR" alignment="2" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[5]/html:div/html:div/html:div/html:table/html:tr[4]/html:td[2]" />
+		<trigger  name="DIVR2" alignment="2" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[5]/html:div/html:div/html:div/html:table/html:tr[4]/html:td[3]" />
+		<trigger  name="DIVR3" alignment="2" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[5]/html:div/html:div/html:div/html:table/html:tr[4]/html:td[4]" />
+
+        <trigger  name="Land" width="120" regex="\W*\w*\W*\w*\W*\w*\W*(\w*)\W*" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[1]/html:form[@id='SnapshotHeaderForm']/html:div/html:div[2]" />
+		<trigger  name="Branche" width="120" regex="\W*\w*\W*\w*\W*(\w*)\W*" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[1]/html:form[@id='SnapshotHeaderForm']/html:div/html:div[2]" />
+		<trigger  name="Kapital" width="120" regex="\s*([\d\.\,\+\-]*).*" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[5]/html:div/html:div/html:div/html:table/html:tr[5]/html:td[2]" />
+        <trigger  name="KapUnit" width="120" regex="\s*[\d\.\,\+\-]*(.*)" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[5]/html:div/html:div/html:div/html:table/html:tr[5]/html:td[2]" />
+		
+		<trigger name="Chance" width="30" regex="\D*(\d*)\D*" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[1]/html:form[@id='SnapshotHeaderForm']/html:div/html:div[3]/html:a[2]/html:img/@alt" />
+		<trigger name="Risiko" width="30" regex="([mittleres|niedriges|hohes])\D*" xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[1]/html:form[@id='SnapshotHeaderForm']/html:div/html:div[3]/html:a[3]/html:img/@alt" />
+        
+        <trigger  name="1W"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[4]/html:div/html:div/html:div/html:table/html:tr[1]/html:td[3]/html:span" />
+        <trigger  name="1M"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[4]/html:div/html:div/html:div/html:table/html:tr[2]/html:td[3]/html:span" />
+        <trigger  name="1Y"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[2]/html:div/html:div[2]/html:div[4]/html:div/html:div/html:div/html:table/html:tr[4]/html:td[3]/html:span" />
+
+    </page>
+
+    <page name="ConsorsAnalystenmeinungen" url="https://www.cortalconsors.de/Kurse-Maerkte/Aktien/Kurs-Snapshot/Analysen/Analystenmeinungen/">
+		<trigger  name="E/S1" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[1]/html:div/html:div/html:table/html:tr[3]/html:td[2]" />
+        <trigger  name="E/S2" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[1]/html:div/html:div/html:table/html:tr[3]/html:td[3]" />
+        <trigger  name="E/S3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[1]/html:div/html:div/html:table/html:tr[3]/html:td[4]" />
+
+        <trigger  name="DR1" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[1]/html:div/html:div/html:table/html:tr[11]/html:td[2]" />
+        <trigger  name="DR2" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[1]/html:div/html:div/html:table/html:tr[11]/html:td[3]" />
+        <trigger  name="DR3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[1]/html:div/html:div/html:table/html:tr[11]/html:td[4]" />
+
+        <trigger  name="Rating" regex="(\w*)\s.*" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div/html:div/html:div/html:table[1]/html:tbody/html:tr[1]/html:td[2]" />
+        <trigger  name="Score" regex="\D*([\d\,\.]*)\D?" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div/html:div/html:div/html:table[1]/html:tbody/html:tr[1]/html:td[2]" />
+		<trigger  name="Kurspotential" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div/html:div/html:div/html:table[1]/html:tbody/html:tr[1]/html:td[5]" />
+        <trigger  name="AnzahlAnalysten" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[1]/html:div/html:div/html:table/html:tr[2]/html:td[3]" />
+	</page>
+	
+	<page name="ConsorsBilanzdaten" url="https://www.cortalconsors.de/Kurse-Maerkte/Aktien/Kurs-Snapshot/Profil/Bilanzdaten/">
+		<trigger  name="EQ3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:table/html:tr[7]/html:td[4]" />
+		<trigger  name="CF3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:table/html:tr[9]/html:td[4]" />
+		
+		<trigger  name="Unit" width="90" regex=".*\(in\s(.*)\).?"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]" />
+	</page>
+
+    <page name="ConsorsFinanzkennzahlen" url="https://www.cortalconsors.de/Kurse-Maerkte/Aktien/Kurs-Snapshot/Profil/Finanzkennzahlen/">
+		<trigger  name="KGV1" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]/html:div/html:div/html:table/html:tr[4]/html:td[2]" />
+        <trigger  name="KGV2" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]/html:div/html:div/html:table/html:tr[4]/html:td[3]" />
+        <trigger  name="KGV3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]/html:div/html:div/html:table/html:tr[4]/html:td[4]" />
+
+		<trigger  name="KBV1" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]/html:div/html:div/html:table/html:tr[12]/html:td[2]" />
+		<trigger  name="KBV2" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]/html:div/html:div/html:table/html:tr[12]/html:td[3]" />
+		<trigger  name="KBV3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]/html:div/html:div/html:table/html:tr[12]/html:td[4]" />
+
+        <trigger  name="PEG3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]/html:div/html:div/html:table/html:tr[6]/html:td[4]" />
+
+        <trigger  name="EQQ3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[1]/html:div/html:div/html:table/html:tr[2]/html:td[4]" />
+
+        <trigger  name="DBTL3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[1]/html:div/html:div/html:table/html:tr[3]/html:td[4]" />
+
+        <trigger  name="CFMargin3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[2]/html:div/html:div/html:table/html:tr[4]/html:td[4]" />
+
+        <trigger  name="EBITDAMargin3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[2]/html:div[2]/html:div/html:div/html:table/html:tr[6]/html:td[4]" />
+
+        <trigger  name="CF/S3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]/html:div/html:div/html:table/html:tr[7]/html:td[4]" />
+
+        <trigger  name="D/S3" width="90"  xpath="/html:html/html:body/html:div[@id='page']/html:div[@id='body']/html:div[@id='content-area']/html:div[@id='ccui-main']/html:div/html:div[3]/html:div/html:div[1]/html:div[1]/html:div/html:div/html:table/html:tr[9]/html:td[4]" />
+
+	</page>
+	
+	<!--
+	<detail name="Chart" url="http://isht.comdirect.de/charts/large.chart?hist=6m&type=CONNECTLINE&asc=lin&dsc=abs&avg1=18&avg2=38&avg3=100&avgtype=simple&ind0=VOLUME&ind1=MACD&ind2=SRS&ind3=ULTOSC&&currency=&lSyms=AZ2.FSE" />
+	  -->
+</pages>
+
+

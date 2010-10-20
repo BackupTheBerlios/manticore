@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="Trader" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Trader.</description>
+    <import file="nbproject/build-impl.xml"/>
+
+    <import file="nbproject/profiler-build-impl.xml"/>    <!--
+
+    There exist several targets which are by default empty and which can be
+    used for execution of your tasks. These targets are usually executed
+    before and after some main targets. They are:
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported
+    nbproject/build-impl.xml file.
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are:
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="WaveTrader-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on
+    the compile target as the regular run target does. Again, for a list of available
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file.
+
+    -->
+
+    <target name="simulate" depends="init,compile,-pre-pre-jar,-pre-jar">
+        <java classname="wavetrader.Simulate" classpath="/home/are/src/WaveTrader/dist/*:/home/are/src/WaveTrader/dist/lib/*"
+
+              fork="false" >
+            <sysproperty key="DEBUG" value="true"/>
+            <arg value="-h"/>
+            <jvmarg value="-Xrunhprof:cpu=samples,file=log.txt,depth=3"/>
+        </java>
+
+    </target>
+
+    <path id="ant-deb.classpath">
+        <fileset dir="/home/are/src/lib/" includes="*.jar"/>
+    </path>
+
+    <target name="rpm" depends="jar" description="build the i386 deb file">
+        <rpm
+        specFile="example.spec"
+        topDir="build/rpm"
+        cleanBuildDir="true"
+        failOnError="true"/>
+    </target>
+
+    <target name="deb" depends="jar" description="build the i386 deb file">
+        <delete failonerror="false" >
+            <fileset dir="">
+                <include name="manticore-trader*.deb" />
+                <include name="manticore-trader*.desktop" />
+            </fileset>
+        </delete>
+        <taskdef name="desktopentry" classname="com.googlecode.ant_deb_task.DesktopEntry" classpathref="ant-deb.classpath"/>
+        <desktopentry
+            toFile="manticore-trader.desktop"
+            name="manticore-trader"
+            comment="Open source day trading software"
+            icon="/opt/manticore-trader/manticore-trader.png"
+            exec="java -jar /opt/manticore-trader/dist/manticore-trader.jar"
+            type="Application"
+            terminal="false"
+            mimeType="application/java-archive"
+            path="/opt/manticore-trader"
+            categories="Office;"
+            />
+        <taskdef name="deb" classname="com.googlecode.ant_deb_task.Deb" classpathref="ant-deb.classpath"/>
+        <deb
+            todir=""
+            package="manticore-trader"
+            section="contrib/comm"
+            architecture="all"
+            depends="sun-java6-jre">
+            <version upstream="1.1.1"/>
+            <maintainer name="Andreas Reichel" email="andreas@manticore-trader.com"/>
+            <description synopsis="Open source day trading software">
+                manitcore-trader is a feature complete software collection about short and mid term trading of equities, indices, commodities or currencies through derivatives (e. g. certificates).
+                .
+                Download:
+                .
+                http://www.manticore-projects.com/content/en/download.htm
+            </description>
+            <tarfileset dir="${dist.dir}/lib" prefix="opt/manticore-trader/dist/lib">
+                <include name="apache-mime4j-0.6.jar" />
+                <include name="Broker.jar" />
+                <include name="ChartExport.jar" />
+                <include name="commons-logging-1.1.1.jar" />
+                <include name="dom4j-1.6.1.jar" />
+                <include name="h2-1.2.136.jar" />
+                <include name="httpclient-4.0.jar" />
+                <include name="httpcore-4.0.1.jar" />
+                <include name="httpcore-nio-4.0.1.jar" />
+                <include name="httpmime-4.0.jar" />
+                <include name="jaxen-1.1.1.jar" />
+                <include name="jcommon-1.0.0-rc1.jar" />
+                <include name="joda-time-1.5.2.jar" />
+                <include name="lzma-java-1.0.jar" />
+                <include name="PositonController.jar" />
+                <include name="mysql-connector-java-5.1.6-bin.jar" />
+                <include name="opencsv-1.8.jar" />
+                <include name="postgresql-8.3-603.jdbc3.jar" />
+                <include name="QuotesDB.jar" />
+                <include name="SwingUI.jar" />
+                <include name="tagsoup-1.0rc3.jar" />
+                <include name="ta-lib-0.4.0.jar" />
+                <include name="Utilities.jar" />
+                <include name="WebsiteParser.jar" />
+                <include name="Foundation.jar" />
+            </tarfileset>
+            <tarfileset file="${dist.jar}" prefix="opt/manticore-trader/dist"/>
+            <tarfileset file="manticore-trader.png" prefix="opt/manticore-trader"/>
+            <tarfileset file="manticore-trader" prefix="usr/local/bin" filemode="755"/>
+            <tarfileset file="manticore-trader.desktop" prefix="usr/share/applications"/>
+        </deb>
+    </target>
+
+
+
+</project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<programs>
+	<program name="manticore-trader">
+		<module name="network">
+			<option name="proxyIP"></option>
+			<option name="proxyPort"></option>
+		</module>
+		<module name="PositionController">
+                        <option name="limit">-0.015</option>
+                        <option name="targetRatio">-0.35</option>
+                        <option name="targetTransactionAmount">1200.00</option>
+			<option name="trailingStopLoss">-0.025</option>
+			<option name="winLossRatio">0.69</option>
+                        <option name="priceAdjustment">0.001</option>
+		</module>
+		<module name="Flatex">
+			<option name="url">https://konto.flatex.de/onlinebanking-flatex</option>
+			<option name="accountID"></option>
+			<option name="password"></option>
+			<option name="tradingPassword"></option>
+		</module>
+		<module name="Quotes">
+			<option name="className">org.h2.JDBCDriver</option>
+			<option name="connectionUrlStr">jdbc:h2:file:${user.home}manticore-trader2</option>
+			<option name="username">SA</option>
+			<option name="password"></option>
+		</module>
+	</program>
+</programs>

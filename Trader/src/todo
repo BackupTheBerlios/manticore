@@ -1,0 +1,46 @@
+/*
+ *
+ *  Copyright (C) 2010 Andreas Reichel <andreas@manticore-projects.com>
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or (at
+ *  your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+Planned for Version 1.0
+* fix all open bugs in order to provide maximum stable release
+* provide quotes for the past 5 days on the website (done in 0.9.9)
+* support for trailing SL and TP (done in 0.9.9)
+* document all the functionality and parameters (amost done in 1.0)
+* store website parser information in a file on the webserver and download it automatically (done in 1.0)
+
+Planned for Version 1.1
+* performance report (almost done in 1.1)
+* add some small annotations like arrows, bullets and some text markers (done in 1.1)
+* calculate price of the certificate correctly in case underlying is in USD/GPB/JPY
+* support of more warrants (KO, discount, plain vanilla put/call, bonus) and shares
+* support for additional warrants and issuers (Commerzbank, Paribas, Vontobel, L&S, Trinkhaus etc.)
+
+Planned for Version 1.2
+* additional EOD-quotes for the past 5 years
+* information of financial figures and balance sheet data
+* backtesting and simulation module
+
+Planned for version 1.4
+* support for additional brokers (IB, ...)
+
+

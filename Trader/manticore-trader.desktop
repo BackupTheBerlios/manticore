@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name=manticore-trader
+Comment=Open source day trading software
+Icon=/opt/manticore-trader/manticore-trader.png
+Exec=java -jar /opt/manticore-trader/dist/manticore-trader.jar
+MimeType=application/java-archive
+Path=/opt/manticore-trader
+Categories=Office;

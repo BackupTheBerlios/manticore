@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE pages [
+	<!ELEMENT pages (pageset+,page+)>
+	
+	<!ELEMENT pageset (set)+>
+	<!ATTLIST pageset
+		name		CDATA	#REQUIRED
+		url			CDATA	#REQUIRED
+		xpath		CDATA	#REQUIRED
+		regex		CDATA	#REQUIRED
+	>
+	<!ELEMENT set (#PCDATA)>
+	<!ATTLIST set
+		name		CDATA	#REQUIRED
+		urlsuffix	CDATA	#REQUIRED
+	>
+	
+	
+	
+	<!ELEMENT page (trigger)+>
+	<!ATTLIST page
+		name		ID		#REQUIRED
+		url 		CDATA 	#REQUIRED
+		urlsuffix 	CDATA 	""
+		>
+	
+	<!ELEMENT trigger (#PCDATA)>
+	<!ATTLIST trigger
+		name		ID		#REQUIRED
+		xpath		CDATA	#REQUIRED
+		attr		CDATA	#REQUIRED
+		regex		CDATA	#REQUIRED
+		>
+]>
+
+<pages>
+	<pageset name="Indices" url="http://www.happyyuppie.com/cgi-bin/de/tops.pl?sortby=namekurz&amp;group=" xpath="//h:tr[@class='data']/h:td[2]/h:a" regex="">
+		<set name="CAC 40" urlsuffix="42" />
+		<set name="Österreich" urlsuffix="37" />
+		<set name="DAX" urlsuffix="43" />
+		<set name="MDAX" urlsuffix="59" />
+		<set name="Techdax" urlsuffix="60" />
+		<set name="Tech ALL Share" urlsuffix="61" />
+		<set name="Euro StoXX 50" urlsuffix="67" />
+		<set name="SDAX" urlsuffix="91" />
+		<set name="Swissmarket" urlsuffix="53" />
+		<set name="DOW Jones" urlsuffix="1" />
+		<set name="Nasdaq 100" urlsuffix="8" />
+	</pageset>
+	
+	<pageset name="Depotcheck" url="http://www.boersenwelt.de/xist4c/web/displayPortfolioOverviewAction.do" xpath="//h:tr[@class='mudepDataEvenLine'[h:td[h:a][7]]] | //h:tr[@class='mudepDataUnevenLine'[h:td[h:a][7]]]" regex="">
+		<set name="Depot" urlsuffix="42" />
+	</pageset>
+	
+	<page name="Depotvergleich" url="http://www.happyyuppie.com/cgi-bin/de/search.pl?string=" urlsuffix="&amp;typnr=3">
+		<trigger name="Aktie" xpath="/h:html/h:body/h:center/h:center/h:table/h:tr[2]/h:td[1]/h:b/h:font" attr="" regex=""/>
+		<trigger name="WKN" xpath="//h:td[.='WKN']/../following-sibling::h:tr/h:td[1]" attr="" regex=""/>
+		<trigger name='HandelssignalKurzfristig' xpath="//h:td[.='Handelssignal:']/following-sibling::h:td" attr="" regex="\D*(\d*)\D*" />
+	</page>
+	
+	<page name="HappyYuppieLangfristig" url="http://www.happyyuppie.com/cgi-bin/de/search.pl?string=" urlsuffix="&amp;typnr=4">
+		<trigger name='HandelssignalLangfristig' xpath="//h:td[.='Handelssignal:']/following-sibling::h:td" attr="" regex="\D*(\d*)\D*" />
+		<trigger name="Risikoklasse" xpath="//h:td[normalize-space(text())='Risikoklasse:']/following-sibling::h:td/h:font" attr="" regex=""/>
+		<trigger name="Volatilität" xpath="//h:td[contains(text(),'Volatilit')='true']/following-sibling::h:td/h:font" attr="" regex=""/>
+		<trigger name="RelativeStärke" xpath="//h:td[contains(text(),'Relative St')='true']/following-sibling::h:td/h:font" attr="" regex=""/>
+	</page>
+	
+	<page name="Comdirect" url="http://isht.comdirect.de/html/detail/main.html?sWkn=">
+		<trigger attr="" name="Preis" regex="" xpath="/h:html/h:body/h:div[1]/h:div[1]/h:div/h:div/h:div/h:div/h:div/h:div[1]/h:p[2]/h:b" />
+		<trigger attr="" name="KGV" regex="" xpath="//h:p/h:span[@title='KGV (erwartet)']/following-sibling::h:b" />
+		<trigger attr="" name="DivR" regex="" xpath="//h:p/h:span[@title='Dividende (erwartet)']/following-sibling::h:b" />
+	</page>
+	
+	<page name="Consors_Chance_Risiko" url="https://www.cortalconsors.de/euroWebDe/-?$part=financeinfosHome.Desks.stocks.Desks.snapshot.content.snapshot.snapshot.consensus&amp;id_name=WKN&amp;id=">
+		<trigger attr="" name="Land" regex=".*Aktie(.*)\|.*" xpath="//h:a[.='Chance']/following-sibling::h:span" />
+		<trigger attr="" name="Region" regex=".*\|(.*)" xpath="//h:a[.='Chance']/following-sibling::h:span" />
+		<trigger attr="" name="t1" regex="" xpath="//h:td[.='Aktuell']/following-sibling::h:td[1]" />
+		<trigger attr="" name="t2" regex="" xpath="//h:td[.='Aktuell']/following-sibling::h:td[4]" />
+		<trigger attr="alt" name="Chance" regex="\D*(\d*)\D*" xpath="//h:a[.='Chance']/following-sibling::h:a/h:img" />
+		<trigger attr="alt" name="Risiko" regex="([mittleres|niedriges|hohes])\D*" xpath="//h:a[.='Risiko']/following-sibling::h:a/h:img" />
+	</page>
+	
+	<page name="Consors_Technische_Analyse" url="https://www.cortalconsors.de/euroWebDe/-?$part=financeinfosHome.Desks.stocks.Desks.snapshot.content.snapshot.snapshot.chart-analysis&amp;id_name=WKN&amp;id=">
+		<trigger attr="" name="Kaufsignal1" regex="" xpath="//h:td[contains(text(),'Technische Analyse')='true']/../following-sibling::h:tr[1]/h:td[2]" />
+		<trigger attr="" name="Kaufsignal2" regex="" xpath="//h:td[contains(text(),'Technische Analyse')='true']/../following-sibling::h:tr[1]/h:td[5]" />
+		<trigger attr="" name="Unterstützung" regex="" xpath="//h:td[normalize-space(text())='Unterstützung:']/following-sibling::h:td[1]" />
+		<trigger attr="" name="Widerstand" regex="" xpath="//h:td[normalize-space(text())='Widerstand:']/following-sibling::h:td[1]" />
+	</page>
+</pages>

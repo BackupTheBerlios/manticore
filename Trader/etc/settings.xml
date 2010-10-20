@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<programs> 
+  <program name="none"/>  
+  <program name="testprogram"> 
+    <module name="testmodule"> 
+      <option name="testoption">test3</option> 
+    </module> 
+  </program> 
+</programs>

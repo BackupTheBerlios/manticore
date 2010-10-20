@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/*
+ *
+ *  Copyright (C) 2010 Andreas Reichel <andreas@manticore-projects.com>
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or (at
+ *  your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+-->
+<sites>
+    <site id="WaveXXLFromIsin" urlStr="http://www.de.x-markets.db.com/DE/showpage.asp?pageid=582&amp;lang=DE" xpath="">
+        <parameter id="isin" key="&amp;stinput="/>
+        <field id="wkn">
+            <description></description>
+            <xpath>/html:html/html:body/html:div[2]/html:table/html:tr/html:td[2]/html:div[2]/html:table/html:tr/html:td/html:table/html:tr/html:td/html:div/html:div[2]/html:div[2]/html:div/html:div/html:div[1]/html:div/html:div/html:table/html:tr[2]/html:td[1]/html:table/html:tr/html:td/html:table[3]/html:tr[3]/html:td[2]/html:div/html:table/html:tr[1]/html:td[2]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="bid">
+            <description></description>
+            <xpath>/html:html/html:body/html:div[2]/html:table/html:tr/html:td[2]/html:div[2]/html:table/html:tr/html:td/html:table/html:tr/html:td/html:div/html:div[2]/html:div[2]/html:div/html:div/html:div[1]/html:div/html:div/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table[1]/html:tr[2]/html:td[2]/html:table/html:tr/html:td[1]/html:div/html:span</xpath>
+            <pattern></pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="ask">
+            <description></description>
+            <xpath>/html:html/html:body/html:div[2]/html:table/html:tr/html:td[2]/html:div[2]/html:table/html:tr/html:td/html:table/html:tr/html:td/html:div/html:div[2]/html:div[2]/html:div/html:div/html:div[1]/html:div/html:div/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table[1]/html:tr[2]/html:td[2]/html:table/html:tr/html:td[2]/html:div/html:span</xpath>
+            <pattern></pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="strike">
+            <description></description>
+            <xpath>/html:html/html:body/html:div[2]/html:table/html:tr/html:td[2]/html:div[2]/html:table/html:tr/html:td/html:table/html:tr/html:td/html:div/html:div[2]/html:div[2]/html:div/html:div/html:div[1]/html:div/html:div/html:table/html:tr[2]/html:td[1]/html:table/html:tr/html:td/html:table[3]/html:tr[3]/html:td[2]/html:div/html:table/html:tr[9]/html:td[2]</xpath>
+            <pattern>([\d\,\.]+)</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="ko">
+            <description></description>
+            <xpath>/html:html/html:body/html:div[2]/html:table/html:tr/html:td[2]/html:div[2]/html:table/html:tr/html:td/html:table/html:tr/html:td/html:div/html:div[2]/html:div[2]/html:div/html:div/html:div[1]/html:div/html:div/html:table/html:tr[2]/html:td[1]/html:table/html:tr/html:td/html:table[5]/html:tr[3]/html:td[2]/html:div/html:table/html:tr[3]/html:td[2]</xpath>
+            <pattern>([\d\,\.]+)</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="leverage">
+            <description></description>
+            <xpath>/html:html/html:body/html:div[2]/html:table/html:tr/html:td[2]/html:div[2]/html:table/html:tr/html:td/html:table/html:tr/html:td/html:div/html:div[2]/html:div[2]/html:div/html:div/html:div[1]/html:div/html:div/html:table/html:tr[2]/html:td[1]/html:table/html:tr/html:td/html:table[5]/html:tr[3]/html:td[2]/html:div/html:table/html:tr[1]/html:td[2]/html:div</xpath>
+            <pattern></pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="ratio">
+            <description></description>
+            <xpath>/html:html/html:body/html:div[2]/html:table/html:tr/html:td[2]/html:div[2]/html:table/html:tr/html:td/html:table/html:tr/html:td/html:div/html:div[2]/html:div[2]/html:div/html:div/html:div[1]/html:div/html:div/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table[1]/html:tr[2]/html:td[2]/html:table/html:tr/html:td[3]/html:span</xpath>
+            <pattern></pattern>
+            <type>FRACTION</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="WaveXXLByStrike" urlStr="http://www.de.x-markets.db.com/DE/showpage.asp?pageid=54&amp;inorder=-9&amp;stfilter=&amp;inaps=200" xpath="/html:html/html:body/html:div[2]/html:table/html:tr/html:td[2]/html:div[2]/html:table/html:tr[2]/html:td/html:table[1]/html:tr[1]/html:td[1]/html:table[1]/html:tr[3]/html:td[2]/html:div/html:table[4]/html:tr[2]/html:td[2]/html:form/html:tr[position()>2]">
+        <parameter id="inwpnr" key="&amp;inwpnr="/>
+        <parameter id="inbwnr" key="&amp;inbwnr="/>
+        <field id="wkn">
+            <description></description>
+            <xpath>html:td[2]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="bid">
+            <description></description>
+            <xpath>html:td[4]</xpath>
+            <pattern></pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="ask">
+            <description></description>
+            <xpath>html:td[5]</xpath>
+            <pattern></pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="strike">
+            <description></description>
+            <xpath>html:td[7]</xpath>
+            <pattern></pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="ko">
+            <description></description>
+            <xpath>html:td[8]</xpath>
+            <pattern></pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="leverage">
+            <description></description>
+            <xpath>html:td[10]</xpath>
+            <pattern></pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="ratio">
+            <description></description>
+            <xpath>html:td[11]</xpath>
+            <pattern></pattern>
+            <type>FRACTION</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="NewsList" urlStr="http://www.comdirect.de/inf/news/allenews.html" xpath="/html:html/html:body/html:div[4]/html:div[1]/html:div[1]/html:div[3]/html:div/html:div/html:div/html:div[3]/html:table/html:tr[position()>1]">
+        <!-- <field id="agency">
+            <description></description>
+            <xpath>./html:td[3]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field> -->
+        <field id="caption">
+            <description></description>
+            <xpath>./html:td[2]/html:a</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <!-- <field id="date">
+            <description></description>
+            <xpath>./html:td[1]/html:div[1]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field> -->
+        <field id="time">
+            <description></description>
+            <xpath>./html:td[1]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="href">
+            <description></description>
+            <xpath>./html:td[2]/html:a/@href</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="NewsItem" urlStr="http://www.comdirect.de" xpath="/html:html/html:body/html:div[4]/html:div[1]/html:div[1]/html:div[2]">
+        <parameter id="id" key=""/>
+        <field id="item">
+            <description></description>
+            <xpath>.</xpath>
+            <pattern></pattern>
+            <type>XML</type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="ArivaIDByWKN" urlStr="http://www.ariva.de/search/search.m?url=%2Fquote%2Fprofile.m" xpath="">
+        <parameter id="wkn" key="&amp;searchname="/>
+        <field id="secu">
+            <description></description>
+            <xpath>/html:html/html:body/html:div[6]/html:div/html:div[6]/html:div[1]/html:table/html:tr/html:td[1]/html:a/@href</xpath>
+            <pattern>.*secu=([A-Za-z\d]+)</pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="ArivaPushStream" urlStr="http://push.ariva.de/push?domain=ariva.de&amp;login=arivaami&amp;rand=1225252579527" xpath="">
+        <parameter id="secu" key="&amp;secu="/>
+    </site>
+    <site id="FlatexLoginForm" urlStr="https://konto.flatex.de/onlinebanking-flatex/loginFormAction.do" xpath="" />
+    <site id="FlatexLoginForm2" urlStr="https://konto.flatex.de/onlinebanking-flatex/loginFormAction.do" xpath="" >
+        <parameter id="sessionID" key=";jsessionid="/>
+        <parameter id="suffix" key="?doPopulate=true"/>
+    </site>
+    <site id="FlatexTanForm" urlStr="https://konto.flatex.de/onlinebanking-flatex/sessionPasswordFormAction.do?method=initialize&amp;noValidation=true" xpath="">
+        <field id="tan">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[3]/html:td[1]</xpath>
+            <pattern>([\s\w]{8}$)</pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="FlatexTanForm2" urlStr="https://konto.flatex.de/onlinebanking-flatex/sessionPasswordFormAction.do?doPopulate=true" xpath="" />
+    <site id="FlatexDepotOverview" urlStr="https://konto.flatex.de/onlinebanking-flatex/overviewFormAction.do" xpath="" >
+        <parameter id="sessionID" key=";jsessionid="/>
+        <parameter id="suffix" key="?method=refresh"/>
+        <field id="availableAmount">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[5]/html:td/html:table/html:tr[3]/html:td[2]/html:table/html:tr[4]/html:td[6]/html:b/html:span</xpath>
+            <pattern>([\d\+\-\,\.]+)</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="FlatexPing" urlStr="https://konto.flatex.de/onlinebanking-flatex/ping" xpath="" >
+        <parameter id="sessionID" key=";jsessionid="/>
+        <field id="result">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[5]/html:td/html:table/html:tr[3]/html:td[2]/html:table/html:tr[4]/html:td[6]/html:b/html:span</xpath>
+            <pattern>([\d\+\-\,\.]+)</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="FlatexOrderInitialize" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderAction.do?method=initialize" xpath="">
+    </site>
+    <site id="FlatexOrderPopulate" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperSearchFormActionPaperOrder.do?doPopulate=true&amp;searchButton.x=27&amp;searchButton.y=10" xpath="" >
+        <parameter id="isin" key="&amp;mode.searchText.text="/>
+    </site>
+    <site id="FlatexOrderSearchPaper" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperSearchFormActionPaperOrder.do?doPopulate=true&amp;paperInfoSubForm.quoteTradeButton.x=137&amp;paperInfoSubForm.quoteTradeButton.y=24" xpath="" >
+        <parameter id="isin" key="&amp;mode.searchText.text="/>
+        <field id="TradingPassword">
+            <description></description>
+            <xpath>/*[name()='html']/*[name()='body']/*[name()='table'][2]/*[name()='tr']/*[name()='td']/*[name()='table']/*[name()='tr']/*[name()='td']/*[name()='table']/*[name()='tr'][2]/*[name()='td'][2]/*[name()='table']/*[name()='tr']/*[name()='td']/*[name()='table']/*[name()='tr'][2]/*[name()='td']/*[name()='form']/*[name()='table']/*[name()='tr']/*[name()='td']/*[name()='table'][2]/*[name()='tr']/*[name()='td'][1]/*[name()='table']/*[name()='tr']/*[name()='td']/*[name()='table']/*[name()='tr'][2]/*[name()='td'][2]/*[name()='table']/*[name()='tr']/*[name()='td']/*[name()='table'][2]/*[name()='tr'][2]/*[name()='td']/*[name()='table']/*[name()='tr'][3]/*[name()='td']/*[name()='table']/*[name()='tr']/*[name()='td'][2]/*[name()='table']/*[name()='tr']/*[name()='td'][2]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="FlatexOrderListInitialize" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderListFormAction.do?method=forceRefresh" xpath="" />
+    <site id="FlatexOrderListStatus" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderListFormAction.do?method=refresh" xpath="" >
+        <parameter id="isin" key="&amp;mode.searchText.text="/>
+    </site>
+    <site id="FlatexOrderListIndex" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderListFormAction.do?doPopulate=true&amp;constraints.checked=0&amp;dateRangeRequestSubForm.retrievalPeriods.selectedItemIndex=3&amp;startTime.selectedItemIndex=0&amp;endTime.selectedItemIndex=23" xpath="/*[name()='html']/*[name()='body']/*[name()='table'][2]/*[name()='tr']/*[name()='td']/*[name()='table']/*[name()='tr']/*[name()='td']/*[name()='table']/*[name()='tr'][2]/*[name()='td'][2]/*[name()='table']/*[name()='tr']/*[name()='td']/*[name()='table']/*[name()='tr'][2]/*[name()='td']/*[name()='form']/*[name()='table']/*[name()='tr']/*[name()='td']/*[name()='table'][3]/*[name()='tr'][3]/*[name()='td'][2]/*[name()='table']/*[name()='tr'][position()>1]" >
+        <field id="id_transaction">
+            <description></description>
+            <xpath>./html:td[2]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="status">
+            <description></description>
+            <xpath>./html:td[3]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="FlatexOrderForm" urlStr="https://konto.flatex.de/onlinebanking-flatex/otcQuoteOrderFormAction.do?doPopulate=true" xpath="" />
+    <site id="FlatexOrderFormTimer1" urlStr="https://konto.flatex.de/onlinebanking-flatex/otcQuoteOrderFormAction.do?method=measureTime&amp;start=true" xpath="" />
+    <site id="FlatexOrderFormTimer2" urlStr="https://konto.flatex.de/onlinebanking-flatex/otcQuoteOrderFormAction.do?method=measureTime" xpath="">
+        <field id="quote">
+            <description></description>
+            <xpath>/*[name()='html']/*[name()='head']/*[name()='script']</xpath>
+            <pattern>var quote=\'\&lt;span class=\&quot;PositiveAmount\&quot;\&gt;([0-9\,\.]*)\&lt;\/span\&gt; EUR\'\;</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="FlatexOrderResponse" urlStr="https://konto.flatex.de/onlinebanking-flatex/otcQuoteOrderFormAction.do" xpath="" >
+        <field id="id_transaction">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr/html:td/html:table[2]/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[13]/html:td[7]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="FlatexOrderResponseDirect" urlStr="https://konto.flatex.de/onlinebanking-flatex/otcQuoteOrderFormAction.do?doPopulate=true" xpath="" >
+        <field id="statusKey">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr/html:td/html:table[2]/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[11]/html:td[7]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="id_transaction">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr/html:td/html:table[2]/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[13]/html:td[7]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+         <field id="transactionTypeKey">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr/html:td/html:table[2]/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[9]/html:td[3]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="quantityKey">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr/html:td/html:table[2]/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[6]/html:td[3]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="quantity">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr/html:td/html:table[2]/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[6]/html:td[7]/html:span</xpath>
+            <pattern>([\d\+\-\,\.]+)</pattern>
+            <type>INTEGER</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="timestamp">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr/html:td/html:table[2]/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[11]/html:td[3]</xpath>
+            <pattern></pattern>
+            <type>DATETIME</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="limitPrice">
+            <description></description>
+            <xpath>/html:html/html:body/html:table[2]/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr/html:td/html:table[2]/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[7]/html:td[3]/html:span</xpath>
+            <pattern>([\d\+\-\,\.]+)</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="FlatexOrderDetailsPrepare" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderListFormAction.do?controlName=paperOrderListForm.paperOrderTable&amp;method=selectRow" xpath="" >
+        <parameter id="RowIndex" key="&amp;row="/>
+    </site>
+    <site id="FlatexOrderDetails" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderDetails.jsp" xpath="" >
+        <field id="statusKey">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[11]/html:td[7]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="id_transaction">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[13]/html:td[7]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+         <field id="transactionTypeKey">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[9]/html:td[3]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="quantityKey">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[6]/html:td[3]</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="quantity">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[6]/html:td[7]/html:span</xpath>
+            <pattern>([\d\+\-\,\.]+)</pattern>
+            <type>INTEGER</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="timestamp">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[11]/html:td[3]</xpath>
+            <pattern></pattern>
+            <type>DATETIME</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="executionTimestamp">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[5]/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr[2]/html:td[1]</xpath>
+            <pattern>(\d{2}[\.|\:]\d{2}[\.|\:]\d{2,4})</pattern>
+            <type>DATETIME</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>1</asXML>
+        </field>
+        <field id="executionPrice">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[5]/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr[2]/html:td[3]/html:span</xpath>
+            <pattern>([\d\,\.]+)</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="fee">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[5]/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr[2]/html:td[4]/html:span</xpath>
+            <pattern>([\d\,\.]+)</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="limitPrice">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[7]/html:td[3]</xpath>
+            <pattern>([\d\,\.]+)</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+        <field id="stopPrice">
+            <description></description>
+            <xpath>/html:html/html:body/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td/html:form/html:table/html:tr[1]/html:td/html:table/html:tr/html:td/html:table/html:tr[2]/html:td[2]/html:table/html:tr/html:td/html:table/html:tr[8]/html:td[3]/html:span</xpath>
+            <pattern>([\d\,\.]+)</pattern>
+            <type>FLOAT</type>
+            <locale_in>de</locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="FlatexOrderCancelList" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderListFormAction.do?method=cancel" xpath="" >
+        <parameter id="RowIndex" key="&amp;selectedRow="/>
+    </site>
+    <site id="FlatexOrderCancelInitialize" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderCancellation.jsp" xpath="" />
+    <site id="FlatexOrderCancelInitialize2" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderCancellationFormAction.do" xpath="" />
+    <site id="FlatexOrderCancelForm" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderCancellationFormAction.do?doPopulate=true" xpath="" />
+
+    <site id="FlatexOrderModifyList" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderListFormAction.do?method=modify" xpath="" >
+        <parameter id="RowIndex" key="&amp;selectedRow="/>
+    </site>
+    <site id="FlatexOrderModifyInitialize" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderModification.jsp" xpath="" />
+    <site id="FlatexOrderModifyInitialize2" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderModificationFormAction.do" xpath="" />
+    <site id="FlatexOrderModifyForm" urlStr="https://konto.flatex.de/onlinebanking-flatex/paperOrderModificationFormAction.do?doPopulate=true" xpath="" />
+
+    <site id="abload" urlStr="http://www.abload.de/" xpath="" />
+    <site id="abloadUpload" urlStr="http://www.abload.de/upload.php" xpath="" >
+        <field id="paramStr">
+            <description></description>
+            <xpath>/*[name()='html']/*[name()='body']/*[name()='form']/*[name()='textarea']</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="abloadUploadComplete" urlStr="http://www.abload.de/uploadComplete.php" xpath="" >
+        <field id="imageUrl">
+            <description></description>
+            <xpath>/html:html/html:body[1]/html:div/html:div[3]/html:div[2]/html:table/html:tr[2]/html:td[2]/html:input/@value</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+    <site id="ConsorsApplet" urlStr="https://www.cortalconsors.de/Kurse-Maerkte/Aktien/java-charts-popup-desk" xpath="" >
+        <field id="XID">
+            <description></description>
+            <xpath>//html:param[@name='XID']/@value</xpath>
+            <pattern></pattern>
+            <type></type>
+            <locale_in></locale_in>
+            <locale_out></locale_out>
+            <asXML>0</asXML>
+        </field>
+    </site>
+</sites>
+
+

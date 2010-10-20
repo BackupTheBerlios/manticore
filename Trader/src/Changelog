@@ -1,0 +1,100 @@
+/*
+ *
+ *  Copyright (C) 2010 Andreas Reichel <andreas@manticore-projects.com>
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or (at
+ *  your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+Version 1.1 Development Branch
+* new performance report and ratios (not finished yet)
+* read execution time from order
+* various annotation fixes (Arc, Gap), moving annotation arround, duplicate
+* new annotations: Text, Rectangle, Marker
+* popup-menu for annotations (click using right mouse key)
+* update of web site parser configuration
+
+Version 1.0 Stable Release
+* move all references to websites into a special file stored on the web-server, where it will be updated automatically
+* clean up the code for website parsing, it is very beautiful and clean now!
+* fix the issue with DIRECT ordering, I spent almost 20 orders to fix and test it
+* notify about first connection to the broker
+
+Version 0.9.9.3 Maintenance:
+* adopt the website changes of Deutsche Bank (related to the warrant information)
+
+Version 0.9.9.2 Hotfix:
+* fix a problem related to the patch management, when sometimes the compressed patch was not installed correctly
+* fix several temporary paths and filenames
+* fix some website issues
+
+Version 0.9.9.1 Hotfix:
+* bugfix an issue, when several updates of a transaction in parallel lead to multiple counts in the position
+
+Version 0.9.9:
+* enhancements
+    a) switch to H2 database which performs much better on table joins
+    b) implement export/import of quotes-packages which can be downloaded from the website
+    c) switches for trailing SL and auto-TP emulation
+    d) show a nice message window
+* bug-fixes
+    a) add a lock mechanism in order to avoid interference between different positions using the same broker connection
+
+Version 0.9.8:
+* bug-fixes
+    a) issues with the position grid and view are fixed
+    b) inaccurate price labels for annotations were fixed
+    c) auto-update of order status is fixed
+* enhancements
+    a) EuroStoxx 50 and EUR/USD were added
+    b) Limit set to 1,5% in order to increase leverage of the certificate
+    c) SL-Orders are updated now (instead of canceling and ordering again)
+
+Version 0.9.7:
+* improved charting
+    a) MIN/MAX updated on demand only
+    b) source code clean up for DrawingThread
+    c) improve side price marker (it is dark blue on white background now)
+* database
+    a) reduce refresh from database to 3 minutes in order to save bandwidth, this has no effect on refresh from push stream
+    b) persist positions and transaction, so you can continue trades after shutdown
+    c) proper database upgrade mechanism and some fixes for HSQLDB
+    d) major clean up of the API related to the constructors
+* order-dialog
+    a) fix button-size when resizing (min-size now derived from initial size)
+    b) implement the position grid which shows all open positions on the right side
+    c) provide a nice applet on the website
+    d) update order status automatically depending on the latest market price
+* world time clock
+    a) show a nice world time clock for the most important stock exchanges
+
+Version 0.9.6:
+* adopted the new FLATEX iTan-Card:
+    a) when a new session is started manticore-trader reads a new TAN
+    b) TAN can be supplied from user-input ("TAN-Dialog") or
+    c) TAN can be read from database, when user inserted TANs from card into database
+    d) TAN is applied as session-TAN, manticore trader will send ping every 15 minutes to keep session alive
+
+* database schema
+    a) added new version_info to reflect major and minor release
+    b) added "update", which can be used to import new instruments, new quotes or technical database updates
+    c) added tables for account, position and transaction (which will be used in the next release)
+
+* selection of stock-exchanges
+    a) if various stock-exchanges are available for an instrument there will be a drop-down menu inside the buttons on the top of the chart-canvas
+    b) if a button shows a small black triangle click on it using the right-mouse key in order to select a stock-exchange
+
