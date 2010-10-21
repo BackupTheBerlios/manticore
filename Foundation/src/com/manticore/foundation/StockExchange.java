@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.Interval;
 import org.joda.time.MutableDateTime;
@@ -168,5 +169,25 @@ public class StockExchange {
      */
     public void setClosingMinute(int closingMinute) {
         this.closingMinute = closingMinute;
+    }
+
+    public boolean closesWithinMinutes(int minutes) {
+        MutableDateTime mutableDateTime=new MutableDateTime();
+        mutableDateTime.addMinutes(minutes);
+
+        return (mutableDateTime.getMinuteOfDay() >= closingMinute);
+    }
+
+    public boolean openForMinutes(int minutes) {
+        MutableDateTime mutableDateTime=new MutableDateTime();
+        mutableDateTime.addMinutes(-minutes);
+
+        return (mutableDateTime.getMinuteOfDay() >= openingMinute);
+    }
+
+    public boolean open() {
+        int minuteOfDay = new MutableDateTime().getMinuteOfDay();
+
+        return (minuteOfDay > openingMinute && minuteOfDay < closingMinute);
     }
 }

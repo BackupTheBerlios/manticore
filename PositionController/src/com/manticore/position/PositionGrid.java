@@ -78,6 +78,11 @@ public class PositionGrid extends GridBagPane implements ActionListener, ChangeL
         }
     }
 
+    public boolean hasOpenPosition() {
+        ArrayList<Position> positionArrayList = positionDataStorage.getPositionArrayList(true);
+        return positionArrayList.size() > 0;
+    }
+
     private void buildControls() {
         positionControlerArrayList = new ArrayList();
         tableModel=new TableModel();
