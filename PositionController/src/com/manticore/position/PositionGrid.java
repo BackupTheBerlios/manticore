@@ -83,6 +83,26 @@ public class PositionGrid extends GridBagPane implements ActionListener, ChangeL
         return positionArrayList.size() > 0;
     }
 
+    public boolean hasOpenLongPosition() {
+        boolean found=false;
+        Iterator<Position> iterator = positionDataStorage.getPositionArrayList(true).iterator();
+        while (iterator.hasNext() && !found) {
+            found |= iterator.next().isLong();
+        }
+
+        return found;
+    }
+
+    public boolean hasOpenShortPosition() {
+        boolean found=false;
+        Iterator<Position> iterator = positionDataStorage.getPositionArrayList(true).iterator();
+        while (iterator.hasNext() && !found) {
+            found |= iterator.next().isShort();
+        }
+
+        return found;
+    }
+
     private void buildControls() {
         positionControlerArrayList = new ArrayList();
         tableModel=new TableModel();
@@ -239,14 +259,17 @@ public class PositionGrid extends GridBagPane implements ActionListener, ChangeL
             return s;
         }
 
+        @Override
         public String getColumnName(int column) {
             return columnLabel[column];
         }
 
+        @Override
         public Class getColumnClass(int column) {
             return String.class;
         }
 
+        @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
