@@ -107,5 +107,9 @@ public class Tick {
     public DateTime getDateTime() {
         return dateTime;
     }
+
+	 public Date getDate() {
+		  return dateTime.toDate();
+	 }
 }
 
