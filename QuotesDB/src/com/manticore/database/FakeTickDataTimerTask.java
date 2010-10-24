@@ -35,7 +35,7 @@ import javax.swing.event.ChangeListener;
  *
  * @author are
  */
-public class FakeTickDataTimerTask {
+public class FakeTickDataTimerTask extends Thread {
 	 private final static Logger logger=Logger.getLogger(FakeTickDataTimerTask.class.getName());
 	 private final static long SLEEP_PERIOD=1000L;
     private long id_instrument;
@@ -53,6 +53,7 @@ public class FakeTickDataTimerTask {
 		  this.dateTo=dateTo;
     }
 
+	 @Override
     public void run() {
        try {
             final ResultSet rs = Quotes.getInstance().getTickdataResultSet(id_instrument, id_stockExchange, dateFrom, dateTo);
@@ -61,7 +62,7 @@ public class FakeTickDataTimerTask {
 					 fireMyEvent(new ChangeEvent(this));
 
 					 try {
-						  Thread.sleep(SLEEP_PERIOD);
+						  sleep(SLEEP_PERIOD);
 					 } catch (InterruptedException ex) {
 						  logger.log(Level.SEVERE, null, ex);
 					 }
