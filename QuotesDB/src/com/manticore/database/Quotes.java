@@ -115,7 +115,7 @@ public class Quotes implements PositionDataStorage, TanReader {
     public Quotes(String classname, String hostStr, String login, String password) {
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql:wavetrader", login, password);
+            connection = DriverManager.getConnection(hostStr, login, password);
             connection.setAutoCommit(true);
             connection.setCatalog("public");
         } catch (SQLException ex) {
