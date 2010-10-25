@@ -37,7 +37,7 @@ import javax.swing.event.ChangeListener;
  */
 public class FakeTickDataTimerTask extends Thread {
 	 private final static Logger logger=Logger.getLogger(FakeTickDataTimerTask.class.getName());
-	 private final static long SLEEP_PERIOD=1000L;
+	 private final static long SLEEP_PERIOD=10L;
     private long id_instrument;
     private long id_stockExchange;
 	 private Date dateFrom;
