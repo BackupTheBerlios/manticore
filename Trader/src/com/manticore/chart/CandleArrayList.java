@@ -30,6 +30,7 @@ import com.manticore.foundation.TimeMarker;
 import com.manticore.database.Quotes;
 import com.manticore.foundation.Instrument;
 import com.manticore.foundation.StockExchange;
+import com.manticore.foundation.Tick;
 import com.manticore.foundation.Transaction;
 import com.manticore.indicators.ADXR;
 import com.manticore.indicators.ATR;
@@ -41,11 +42,9 @@ import com.manticore.indicators.MinusDI;
 import com.manticore.indicators.MovingAverage;
 import com.manticore.indicators.ParabolicSAR;
 import com.manticore.indicators.PlusDI;
-import com.manticore.indicators.FastStochasticRSI;
 import com.manticore.indicators.SlowStochasticRSI;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.joda.time.DateTime;
@@ -386,6 +385,17 @@ public class CandleArrayList extends ArrayList<Candle> {
                 candle = c;
                 i = 0;
             }
+        }
+        return candle;
+    }
+
+	 public Candle getCandleFromTick(Tick tick) {
+        Candle candle = getCandle(tick.getDateTime());
+        if (candle != null) {
+            candle.addTick(tick.getPrice(), tick.getQuantity());
+            calculateIndices();
+        } else {
+            Logger.getLogger(getClass().getName()).finest("Candle for tick not found!" + tick.getDateTime());
         }
         return candle;
     }
