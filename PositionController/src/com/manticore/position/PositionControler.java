@@ -176,13 +176,13 @@ public class PositionControler implements ChangeListener, ActionListener {
                 updateSLOrderStatus();
             }
 
-            adjustTrailingSL(marketPrice);
+            adjustStopLoss(marketPrice);
 
             positionView.setPosition(position);
         }
     }
 
-    private void adjustTrailingSL(Float marketPrice) {
+    public void adjustStopLoss(Float marketPrice) {
         if (position.quantity > 0) {
             if (takeProfitMode == TAKE_PROFIT_AUTOMATIC || takeProfitMode == TAKE_PROFIT_TRAILING_AUTOMATIC) {
                 if (marketPrice > position.getTarget()) {
@@ -372,6 +372,16 @@ public class PositionControler implements ChangeListener, ActionListener {
         positionView.resetCancelButton();
     }
 
+    public void cancelOrders() {
+        Iterator<Transaction> iterator = position.getTransactionHashMap().values().iterator();
+        while (iterator.hasNext()) {
+            Transaction transaction=iterator.next();
+            if (transaction.isOpen() && transaction.isPurchase()) {
+                cancelOrder(transaction.id_transaction);
+            }
+        }
+    }
+
     /**
      * @return the positionView
      */
@@ -401,6 +411,17 @@ public class PositionControler implements ChangeListener, ActionListener {
     public void updateSLOrderStatus() {
         Logger.getLogger(this.getClass().getName()).fine("update SL order status " + orderID_SL);
         new UpdateOrderThread(orderID_SL, 1).start();
+    }
+
+    public void updateStatus() {
+        Iterator<Transaction> iterator = position.getTransactionHashMap().values().iterator();
+        while (iterator.hasNext()) {
+            Transaction transaction=iterator.next();
+            if (transaction.isOpen()) {
+                if (transaction.id_transaction.equalsIgnoreCase(orderID)) updateOrderStatus();
+                else updateSLOrderStatus();
+            }
+        }
     }
 
     //do NOT insert a lock here, as method always will be executed inside a lock!
