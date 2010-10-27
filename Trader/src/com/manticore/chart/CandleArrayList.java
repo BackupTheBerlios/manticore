@@ -28,6 +28,7 @@ import com.tictactec.ta.lib.Core;
 import com.tictactec.ta.lib.MAType;
 import com.manticore.foundation.TimeMarker;
 import com.manticore.database.Quotes;
+import com.manticore.foundation.Extremum;
 import com.manticore.foundation.Instrument;
 import com.manticore.foundation.StockExchange;
 import com.manticore.foundation.Tick;
@@ -82,11 +83,7 @@ public class CandleArrayList extends ArrayList<Candle> {
     public Double minATR = null;
     private ArrayList<TimeMarker> timeMarkerArrayList;
     private ArrayList<Transaction> transactionMarkerArrayList;
-
-    public Float lastHigh = null;
-    public Float lastLow = null;
-    public Float previousHigh=null;
-    public Float previousLow=null;
+    private ExtremumArrayList extremumArrayList;
 
     public CandleArrayList(ChartParameters chartParameters) {
         this.instrument = chartParameters.getInstrument();
@@ -144,7 +141,8 @@ public class CandleArrayList extends ArrayList<Candle> {
 
         timeMarkerArrayList = Quotes.getInstance().getTimeMarkerArrayList(dateTimeFrom.toDateTime(), dateTimeTo);
         transactionMarkerArrayList=Quotes.getInstance().getTransactionArrayList(instrument.id_instrument, dateTimeFrom.toDateTime(), dateTimeTo);
-
+        extremumArrayList=new ExtremumArrayList();
+        
         Duration candleDuration = getPeriodSettings().getCandlePeriod().toDurationFrom(dateTimeFrom);
         long increment = 1;
 
@@ -157,6 +155,10 @@ public class CandleArrayList extends ArrayList<Candle> {
         int lastLowIndex = 0;
         int mode = 0;
         int candlePos=0;
+        Float lastHigh = null;
+        Float lastLow = null;
+        Float previousHigh=null;
+        Float previousLow=null;
 
         try {
             rs = Quotes.getInstance().getTickdataResultSet(instrument.getId(), stockExchange.getId(), dateTimeFrom.toDate(), dateTimeTo.toDate());
@@ -203,6 +205,8 @@ public class CandleArrayList extends ArrayList<Candle> {
                                     lastHigh = candle.getHigh();
                                     lastHighIndex = candlePos;
                                     get(lastLowIndex).setLocalExtremum(Candle.LOCAL_EXTREMUM_LOW);
+
+                                    extremumArrayList.add(new Extremum(get(lastLowIndex).getEnd(), get(lastLowIndex).getLow(), Extremum.TYPE_EXTREMUM_TMP_LOW));
                                     mode = 1;
                                 }
                             } else {
@@ -215,6 +219,8 @@ public class CandleArrayList extends ArrayList<Candle> {
                                     lastLow = candle.getLow();
                                     lastLowIndex = candlePos;
                                     get(lastHighIndex).setLocalExtremum(Candle.LOCAL_EXTREMUM_HIGH);
+
+                                    extremumArrayList.add(new Extremum(get(lastHighIndex).getEnd(), get(lastHighIndex).getHigh(), Extremum.TYPE_EXTREMUM_TMP_HIGH));
                                     mode = 0;
                                 }
                             }
@@ -229,6 +235,7 @@ public class CandleArrayList extends ArrayList<Candle> {
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, null, ex);
         }
+        extremumArrayList.adjustExtremum();
         calculateIndices();
     }
 
@@ -551,5 +558,12 @@ public class CandleArrayList extends ArrayList<Candle> {
      */
     public Float getBottom() {
         return bottom;
+    }
+
+    /**
+     * @return the extremumArrayList
+     */
+    public ExtremumArrayList getExtremumArrayList() {
+        return extremumArrayList;
     }
 }
