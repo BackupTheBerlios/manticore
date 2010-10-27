@@ -20,6 +20,16 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
+
+Version 1.1.2 Development Branch
+* compressing HTTP-Client (thanks to Udo Kühne)
+* UTF-8 fixes for the news (thanks to Udo Kühne)
+* prepartion for Maven2 support (thanks to Udo Kühne)
+* simulation-scheme for TradingSystem and TradingSystemSimulation
+* improved High/Low detection
+* complete Mercurial repository on Berlios.de
+* smaller fixes
+
 Version 1.1 Development Branch
 * new performance report and ratios (not finished yet)
 * read execution time from order
