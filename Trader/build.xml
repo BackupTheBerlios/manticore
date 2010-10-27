@@ -85,7 +85,7 @@
     </target>
 
     <path id="ant-deb.classpath">
-        <fileset dir="/home/are/src/lib/" includes="*.jar"/>
+        <fileset dir="${src.dir}/../../lib" includes="*.jar"/>
     </path>
 
     <target name="rpm" depends="jar" description="build the i386 deb file">
@@ -123,7 +123,7 @@
             section="contrib/comm"
             architecture="all"
             depends="sun-java6-jre">
-            <version upstream="1.1.1"/>
+            <version upstream="1.1.2"/>
             <maintainer name="Andreas Reichel" email="andreas@manticore-trader.com"/>
             <description synopsis="Open source day trading software">
                 manitcore-trader is a feature complete software collection about short and mid term trading of equities, indices, commodities or currencies through derivatives (e. g. certificates).
