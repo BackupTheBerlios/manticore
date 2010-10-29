@@ -93,6 +93,10 @@ public class Settings {
 		  return Float.parseFloat(get(Program, Module, Option));
 	 }
 
+	 public Integer getInt(String Program, String Module, String Option) {
+		  return Integer.parseInt(get(Program, Module, Option));
+	 }
+
 	 public boolean getBoolean(String Program, String Module, String Option) {
 		  String s = get(Program, Module, Option);
 		  return (s.equalsIgnoreCase("yes") || s.equalsIgnoreCase("true") || s.equalsIgnoreCase("1") || s.equalsIgnoreCase("y") || s.equalsIgnoreCase("ok"));
