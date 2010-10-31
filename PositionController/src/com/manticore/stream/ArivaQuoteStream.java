@@ -22,6 +22,7 @@
  */
 package com.manticore.stream;
 
+import com.manticore.foundation.Tick;
 import com.manticore.parser.WebsiteParser;
 import com.manticore.parser.WebsiteParser.Site;
 import com.manticore.util.XMLTools;
@@ -66,6 +67,7 @@ public class ArivaQuoteStream extends Thread {
     private BufferedReader reader;
     private boolean stopped = false;
     private final static Logger logger = Logger.getLogger(ArivaQuoteStream.class.getName());
+	 private Tick lastTick;
 
     public ArivaQuoteStream(String key) {
         this.type = TYPE_INDEX;
@@ -215,6 +217,8 @@ public class ArivaQuoteStream extends Thread {
                 }
 
             }
+				
+				lastTick=new Tick(currentDateTime, currentPrice, 0L);
 
             Logger.getLogger(this.getClass().getName()).fine(s + " --> " + currentPrice + "(" + currentDateTime + ")");
 
@@ -251,4 +255,11 @@ public class ArivaQuoteStream extends Thread {
         ArivaQuoteStream stream = new ArivaQuoteStream("DE000DB8JES1", "@31.6");
         System.out.println(stream.currentPrice);
     }
+
+	 /**
+	  * @return the lastTick
+	  */
+	 public Tick getLastTick() {
+		  return lastTick;
+	 }
 }
