@@ -51,8 +51,10 @@ import com.manticore.foundation.PositionDataStorage;
 import com.manticore.foundation.TanReader;
 import com.manticore.util.Settings;
 import com.manticore.foundation.TimeMarker;
+import com.manticore.util.HttpClientFactory;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URL;
 import java.sql.DriverManager;
 import java.text.NumberFormat;
@@ -62,6 +64,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.joda.time.format.DateTimeFormatter;
 
 public class Quotes implements PositionDataStorage, TanReader {
@@ -564,7 +569,7 @@ public class Quotes implements PositionDataStorage, TanReader {
     public boolean importFromUrl1(long id_instrument, long id_stock_exchange) throws FileNotFoundException, IOException, SQLException, URISyntaxException {
         String id = getExtKeyInstrument(4, id_instrument);
 
-        String urlString = "http://tools.godmode-trader.de/omniOmniQuotes.php?&id=" + id + "&exchanges_id=" + id_stock_exchange + "&quote_source=last#tools.godmode-trader.de#";
+        String urlString = "http://tools.godmode-trader.de/omniOmniQuotes.php?&id=" + id + "&exchanges_id=" + id_stock_exchange + "&quote_source=last";
         //"http://tools.godmode-trader.de/German30/omniquotes.php?&id=" + id_instrument + "&exchanges_id=" + id_stock_exchange + "&quote_source=lastMillis";
 
         String day = "";
@@ -696,7 +701,20 @@ public class Quotes implements PositionDataStorage, TanReader {
 
         Settings.setProxy();
 
-        CSVReader reader = new CSVReader(new InputStreamReader(new URL(urlString).openConnection().getInputStream()), ';', '\"');
+		  URI uri=null;
+		  try {
+				uri=new URL(urlString).toURI();
+		  } catch (URISyntaxException ex) {
+				Logger.getLogger(Quotes.class.getName()).log(Level.SEVERE, null, ex);
+		  }
+
+		  DefaultHttpClient httpClient=HttpClientFactory.getClient();
+		  HttpGet get=new HttpGet(uri);
+		  HttpResponse response=httpClient.execute(get);
+
+		  InputStreamReader inputStreamReader=new InputStreamReader(response.getEntity().getContent());
+        //CSVReader reader = new CSVReader(new InputStreamReader(new URL(urlString).openConnection().getInputStream()), ';', '\"');
+		  CSVReader reader = new CSVReader(inputStreamReader, ';', '\"');
         String[] nextLine;
 
         String lastTimestampStr = "";
@@ -1065,39 +1083,7 @@ public class Quotes implements PositionDataStorage, TanReader {
 
     @Override
     public ArrayList<Position> getPositionArrayList(boolean openPositionsOnly) {
-        ArrayList<Position> positionArrayList = new ArrayList<Position>();
-
-        String sqlStr = openPositionsOnly
-                ? "select * from trader.position where quantity>0 or id_position in (SELECT DISTINCT id_position FROM trader.transaction WHERE id_status='O') order by id_position;"
-                : "select * from trader.position where id_position in (SELECT DISTINCT id_position FROM trader.transaction WHERE id_status='X' or id_status='O') order by id_position;";
-        try {
-            Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            ResultSet resultSet = statement.executeQuery(sqlStr);
-            while (resultSet.next()) {
-                long id_account = resultSet.getLong("id_account");
-                long id_position = resultSet.getLong("id_position");
-                Instrument instrument = getInstrumentFromID(resultSet.getLong("id_instrument"));
-
-
-                Position position = new Position(id_account, id_position, instrument);
-                position.id_position_type = resultSet.getString("id_position_type");
-                position.quantity = resultSet.getLong("quantity");
-                position.averageEntry = resultSet.getFloat("average_entry");
-                position.profit = resultSet.getFloat("profit");
-                position.underlyingStopLoss = resultSet.getFloat("stop_loss");
-                position.underlyingEntry = resultSet.getFloat("entry");
-                position.underlyingTarget = resultSet.getFloat("take_profit");
-
-                position.isin = resultSet.getString("isin");
-                position.setTransactionHashMap(getTransactionHashMapFromPositionID(position.id_position));
-
-                positionArrayList.add(position);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Quotes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return positionArrayList;
+        return getPositionArrayList("trader", openPositionsOnly);
     }
 
     @Override
@@ -1260,5 +1246,41 @@ public class Quotes implements PositionDataStorage, TanReader {
         }
         return stringBuilder.toString();
     }
+
+	 public ArrayList<Position> getPositionArrayList(String schema, boolean openPositionsOnly) {
+		  ArrayList<Position> positionArrayList = new ArrayList<Position>();
+
+        String sqlStr = openPositionsOnly
+                ? "select * from " + schema +".position where quantity>0 or id_position in (SELECT DISTINCT id_position FROM " + schema +".transaction WHERE id_status='O') order by id_position;"
+                : "select * from " + schema +".position where id_position in (SELECT DISTINCT id_position FROM " + schema +".transaction WHERE id_status='X' or id_status='O') order by id_position;";
+        try {
+            Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            while (resultSet.next()) {
+                long id_account = resultSet.getLong("id_account");
+                long id_position = resultSet.getLong("id_position");
+                Instrument instrument = getInstrumentFromID(resultSet.getLong("id_instrument"));
+
+
+                Position position = new Position(id_account, id_position, instrument);
+                position.id_position_type = resultSet.getString("id_position_type");
+                position.quantity = resultSet.getLong("quantity");
+                position.averageEntry = resultSet.getFloat("average_entry");
+                position.profit = resultSet.getFloat("profit");
+                position.underlyingStopLoss = resultSet.getFloat("stop_loss");
+                position.underlyingEntry = resultSet.getFloat("entry");
+                position.underlyingTarget = resultSet.getFloat("take_profit");
+
+                position.isin = resultSet.getString("isin");
+                position.setTransactionHashMap(getTransactionHashMapFromPositionID(position.id_position));
+
+                positionArrayList.add(position);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Quotes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return positionArrayList;
+	 }
 }
 
