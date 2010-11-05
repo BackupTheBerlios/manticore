@@ -32,7 +32,6 @@ import com.manticore.system.TradingSystem;
 import com.zcage.log.TextAreaHandler;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,9 +39,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -52,8 +49,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import org.apache.commons.logging.impl.Log4JLogger;
-import sun.rmi.log.LogHandler;
 
 public class TradeSystemPanel extends JPanel implements ActionListener {
 	 private final static Logger logger=Logger.getLogger(TradeSystemPanel.class.getName());
