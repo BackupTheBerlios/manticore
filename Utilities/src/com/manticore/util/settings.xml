@@ -5,6 +5,9 @@
 		<module name="network">
 			<option name="proxyIP"></option>
 			<option name="proxyPort"></option>
+			<option name="proxyUsername"></option>
+			<option name="proxyPassword"></option>
+			<option name="proxyUse">false</option>
 		</module>
 		<module name="PositionController">
                         <option name="limit">-0.015</option>

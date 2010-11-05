@@ -33,13 +33,18 @@ import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.HttpVersion;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.params.ConnManagerParams;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
@@ -99,6 +104,33 @@ public class HttpClientFactory {
 		ClientConnectionManager cm = new ThreadSafeClientConnManager(params,
 				schemeRegistry);
 		DefaultHttpClient httpclient = new DefaultHttpClient(cm, params);
+
+		// set proxy authentication
+		boolean useProxy=Settings.getInstance().getBoolean("manticore-trader", "network", "proxyUse");
+		if (useProxy) {
+		  String proxyIP = Settings.getInstance().get("manticore-trader", "network", "proxyIP");
+		  int proxyPort = Settings.getInstance().getInt("manticore-trader", "network", "proxyPort");
+		  String proxyUsername = Settings.getInstance().get("manticore-trader", "network", "proxyUsername");
+		  String proxyPassword = Settings.getInstance().get("manticore-trader", "network", "proxyPassword");
+
+		  //test for authentication
+		  if (proxyUsername.length()>0 && proxyPassword.length()>0) {
+				//httpclient.getParams().setAuthenticationPreemptive(true);
+
+				Credentials defaultcreds = new UsernamePasswordCredentials(proxyUsername, proxyPassword);
+				httpclient.getCredentialsProvider().setCredentials(new AuthScope(proxyIP, proxyPort, AuthScope.ANY_REALM), defaultcreds);
+
+				//httpclient.getCredentialsProvider().setCredentials(
+            //    new AuthScope("localhost", 8080),
+            //    new UsernamePasswordCredentials("username", "password"));
+
+				//HttpHost targetHost = new HttpHost("www.verisign.com", 443, "https");
+				HttpHost proxy = new HttpHost(proxyIP, proxyPort);
+
+				httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+
+		  }
+		}
 
 		// enrich headers
 		httpclient.addRequestInterceptor(new HttpRequestInterceptor() {
