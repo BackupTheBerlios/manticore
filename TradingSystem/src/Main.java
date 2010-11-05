@@ -21,7 +21,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package tradingsystem;
+
 
 import com.manticore.ui.TradeSystemApplication;
 
