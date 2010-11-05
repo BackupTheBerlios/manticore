@@ -41,7 +41,6 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.joda.time.*;
-import java.util.ArrayList;
 import java.io.FileReader;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.joda.time.format.DateTimeFormat;
@@ -54,7 +53,6 @@ import com.manticore.foundation.TimeMarker;
 import com.manticore.util.HttpClientFactory;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URL;
 import java.sql.DriverManager;
 import java.text.NumberFormat;
@@ -596,7 +594,12 @@ public class Quotes implements PositionDataStorage, TanReader {
         Duration duration = new Duration(new DateTime(lastMillis), new DateTime(DateTimeZone.forID("Europe/Berlin")));
         URL url = (duration.getMillis() > 12L * 60L * 60L * 1000L) ? new URL(longUrlStr) : new URL(shortUrlStr);
 
-        CSVReader reader = new CSVReader(new InputStreamReader(url.openConnection().getInputStream()), ';', '\"', 2);
+        DefaultHttpClient httpClient = HttpClientFactory.getClient();
+        HttpGet get = new HttpGet(url.toURI());
+        HttpResponse response = httpClient.execute(get);
+
+        InputStreamReader inputStreamReader = new InputStreamReader(response.getEntity().getContent());
+        CSVReader reader = new CSVReader(inputStreamReader, ';', '\"', 2);
         String[] nextLine;
 
 
@@ -616,6 +619,8 @@ public class Quotes implements PositionDataStorage, TanReader {
                 volumeHashMap.put(firstMillis, volumeValue);
             }
         }
+
+        get.abort();
 
         StringBuffer strb = new StringBuffer("INSERT INTO trader.tickdata VALUES ");
         Iterator<String> iterator = tickHashMap.values().iterator();
@@ -701,20 +706,13 @@ public class Quotes implements PositionDataStorage, TanReader {
 
         Settings.setProxy();
 
-		  URI uri=null;
-		  try {
-				uri=new URL(urlString).toURI();
-		  } catch (URISyntaxException ex) {
-				Logger.getLogger(Quotes.class.getName()).log(Level.SEVERE, null, ex);
-		  }
+        DefaultHttpClient httpClient = HttpClientFactory.getClient();
+        HttpGet get = new HttpGet(urlString);
+        HttpResponse response = httpClient.execute(get);
 
-		  DefaultHttpClient httpClient=HttpClientFactory.getClient();
-		  HttpGet get=new HttpGet(uri);
-		  HttpResponse response=httpClient.execute(get);
-
-		  InputStreamReader inputStreamReader=new InputStreamReader(response.getEntity().getContent());
+        InputStreamReader inputStreamReader = new InputStreamReader(response.getEntity().getContent());
         //CSVReader reader = new CSVReader(new InputStreamReader(new URL(urlString).openConnection().getInputStream()), ';', '\"');
-		  CSVReader reader = new CSVReader(inputStreamReader, ';', '\"');
+        CSVReader reader = new CSVReader(inputStreamReader, ';', '\"');
         String[] nextLine;
 
         String lastTimestampStr = "";
@@ -743,6 +741,8 @@ public class Quotes implements PositionDataStorage, TanReader {
                 line++;
             }
         }
+
+        get.abort();
 
         StringBuilder strb = new StringBuilder("INSERT INTO trader.tickdata VALUES ");
 
@@ -1247,12 +1247,12 @@ public class Quotes implements PositionDataStorage, TanReader {
         return stringBuilder.toString();
     }
 
-	 public ArrayList<Position> getPositionArrayList(String schema, boolean openPositionsOnly) {
-		  ArrayList<Position> positionArrayList = new ArrayList<Position>();
+    public ArrayList<Position> getPositionArrayList(String schema, boolean openPositionsOnly) {
+        ArrayList<Position> positionArrayList = new ArrayList<Position>();
 
         String sqlStr = openPositionsOnly
-                ? "select * from " + schema +".position where quantity>0 or id_position in (SELECT DISTINCT id_position FROM " + schema +".transaction WHERE id_status='O') order by id_position;"
-                : "select * from " + schema +".position where id_position in (SELECT DISTINCT id_position FROM " + schema +".transaction WHERE id_status='X' or id_status='O') order by id_position;";
+                ? "select * from " + schema + ".position where quantity>0 or id_position in (SELECT DISTINCT id_position FROM " + schema + ".transaction WHERE id_status='O') order by id_position;"
+                : "select * from " + schema + ".position where id_position in (SELECT DISTINCT id_position FROM " + schema + ".transaction WHERE id_status='X' or id_status='O') order by id_position;";
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             ResultSet resultSet = statement.executeQuery(sqlStr);
@@ -1281,6 +1281,6 @@ public class Quotes implements PositionDataStorage, TanReader {
             Logger.getLogger(Quotes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return positionArrayList;
-	 }
+    }
 }
 
