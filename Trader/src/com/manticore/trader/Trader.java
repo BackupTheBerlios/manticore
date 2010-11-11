@@ -40,7 +40,6 @@ import com.manticore.chartexport.ABLoadChartExport;
 import com.manticore.database.DataBaseWizard;
 import com.manticore.database.Quotes;
 import com.manticore.foundation.MessageDialog;
-import com.manticore.parser.WebsiteParser;
 import com.manticore.report.PerformanceReport;
 import com.manticore.swingui.AboutDialog;
 import com.manticore.ui.WorldTimePane;

@@ -328,11 +328,13 @@ public class Flatex implements ActionListener {
                 orderID = site.getString("id_transaction");
             }
             logger.info("made order " + orderID);
-            updating = false;
+            
 
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Flatex.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+		  updating = false;
         return orderID;
     }
 
@@ -379,13 +381,15 @@ public class Flatex implements ActionListener {
             WebsiteParser.getInstance().getSiteFromPost("FlatexOrderCancelForm", client, reqEntity);
             WebsiteParser.getInstance().getSite("FlatexOrderListInitialize", client);
 
-            updating = false;
+            
 
         } catch (IOException ex) {
             Logger.getLogger(Flatex.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(Flatex.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+		  updating = false;
     }
 
     public void adjustSLOrder(String orderID, Float price, Integer quantity)  {

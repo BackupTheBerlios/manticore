@@ -26,7 +26,7 @@ import com.manticore.database.Quotes;
 public class ImportCSVTickData {
 
     public static void main(String[] args) {
-            Quotes.getInstance().executeSqlBatch( importCSVTickData("/tmp/tickdata_3_57.csv") );
+            Quotes.getInstance().executeSqlBatch( importCSVTickData("/tmp/trader.tickdata_1_22.csv") );
     }
 
     public static String importCSVTickData(String fileName) {
