@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -110,7 +111,11 @@ public class WebsiteParser {
                 siteHashMap.put(site.id, site);
             }
 
-        } catch (DocumentException ex) {
+        } catch (MalformedURLException ex) {
+				Logger.getLogger(WebsiteParser.class.getName()).log(Level.SEVERE, null, ex);
+		  } catch (IOException ex) {
+				Logger.getLogger(WebsiteParser.class.getName()).log(Level.SEVERE, null, ex);
+		  } catch (DocumentException ex) {
             Logger.getLogger(WebsiteParser.class.getName()).log(Level.FINE, null, ex);
         }
     }
@@ -400,10 +405,10 @@ public class WebsiteParser {
                     }
                 } catch (SAXException ex) {
                     logger.log(Level.SEVERE, null, ex);
-                    logger.info("could not parse " + finalUrlStr);
+                    logger.log(Level.INFO, "could not parse {0}", finalUrlStr);
                 } catch (DocumentException ex) {
                     logger.log(Level.SEVERE, null, ex);
-                    logger.info("could not read " + finalUrlStr);
+                    logger.log(Level.INFO, "could not read {0}", finalUrlStr);
                 }
 
                 post.abort();
@@ -434,10 +439,10 @@ public class WebsiteParser {
                     }
                 } catch (SAXException ex) {
                     logger.log(Level.SEVERE, null, ex);
-                    logger.info("could not parse " + finalUrlStr);
+                    logger.log(Level.INFO, "could not parse {0}", finalUrlStr);
                 } catch (DocumentException ex) {
                     logger.log(Level.SEVERE, null, ex);
-                    logger.info("could not read " + finalUrlStr);
+                    logger.log(Level.INFO, "could not read {0}", finalUrlStr);
                 }
             } catch (IOException ex) {
                 Logger.getLogger(WebsiteParser.class.getName()).log(Level.SEVERE, null, ex);
@@ -459,7 +464,9 @@ public class WebsiteParser {
                 } else {
                     nodeIterator = document.selectNodes(xpath).iterator();
                 }
-            } catch (SAXException ex) {
+            } catch (IOException ex) {
+					logger.log(Level.SEVERE, null, ex);
+				} catch (SAXException ex) {
                 logger.log(Level.SEVERE, null, ex);
                 logger.info("could not parse " + finalUrlStr);
             } catch (DocumentException ex) {
@@ -489,9 +496,12 @@ public class WebsiteParser {
                         if (value.length() > 0 && field.pattern.length() > 0) {
                             Pattern p = Pattern.compile(field.pattern, Pattern.MULTILINE | Pattern.UNICODE_CASE | Pattern.DOTALL);
                             Matcher m = p.matcher(value);
-                            String result="";
-                            while (m.find()) result+=" " + m.group(1);
-                            if (result.length()==0) logger.fine("could extract " + field.pattern + " from " + value);
+
+									 StringBuilder stringBuilder=new StringBuilder();
+                            while (m.find()) stringBuilder.append(" ").append( m.group(1) );
+                            
+									 String result=stringBuilder.toString();
+									 if (result.length()==0) logger.fine("could extract " + field.pattern + " from " + value);
                             value=result.trim();
                         }
 
@@ -571,9 +581,6 @@ public class WebsiteParser {
 
                             } 
                         }
-
-                        
-
                         fieldValueHashMap.put(field.id, value);
                     } else {
                         logger.fine(new StringBuffer().append("could not read ").append(field.xpath).append("\nplease check ").append(XMLTools.writeTempXMLFile(rootNode.getDocument())).toString());
@@ -584,7 +591,7 @@ public class WebsiteParser {
         }
 
         private String getFinalUrlStr(HashMap<String, String> parameterList) {
-            StringBuffer stringBuffer = new StringBuffer(urlStr);
+            StringBuilder stringBuffer = new StringBuilder(urlStr);
             Iterator<Entry<String, String>> iterator = parameterList.entrySet().iterator();
             while (iterator.hasNext()) {
                 Entry<String, String> entry = iterator.next();
