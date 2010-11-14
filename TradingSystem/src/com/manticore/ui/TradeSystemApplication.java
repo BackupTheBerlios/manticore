@@ -25,7 +25,6 @@ package com.manticore.ui;
 
 import com.manticore.database.Quotes;
 import com.manticore.foundation.MessageDialog;
-import com.manticore.report.PerformanceDistributionWindow;
 import com.manticore.report.PerformanceReport;
 import com.manticore.swingui.MenuBar;
 import com.manticore.swingui.SwingUI;
@@ -46,6 +45,11 @@ import javax.swing.JTextArea;
 public class TradeSystemApplication extends SwingUI {
 	 private JTabbedPane tabbedPane;
 	 private JTextArea textArea;
+
+	 public static void main(String[] args) {
+				TradeSystemApplication tradeSystemApplication = new TradeSystemApplication();
+				tradeSystemApplication.setVisible(true);
+    }
 
 	 public TradeSystemApplication() {
 		  tabbedPane=new JTabbedPane(JTabbedPane.TOP);

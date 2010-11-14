@@ -53,8 +53,8 @@ public class TradingSystem implements ChangeListener {
 
     public static int CLOSING_MINUTES = 15;
     public static int DEACTIVATION_CANDLES = 3;
-    public static String ISIN_LONG = "DB41RV";
-    public static String ISIN_SHORT = "DB0M18";
+    public static String ISIN_LONG = "";
+    public static String ISIN_SHORT = "";
     public static final int MODE_LONG = 1;
     public static final int MODE_NEUTRAL = 0;
     public static final int MODE_SHORT = -1;
@@ -127,13 +127,11 @@ public class TradingSystem implements ChangeListener {
     }
 
     public boolean activateLong() {
-        return mode == MODE_NEUTRAL
-                && lastTmpLow > previousTmpLow;
+        return false;
     }
 
     public boolean activateShort() {
-        return mode == MODE_NEUTRAL
-                && lastTmpHigh < previousTmpHigh;
+        return false;
     }
 
     public void buyDirect(Float stopLoss, Float entry, Float stopBuy, Float takeProfit, String isin) {
@@ -286,29 +284,27 @@ public class TradingSystem implements ChangeListener {
     }
 
     public boolean deactivateLong() {
-        return candle.getLow() < lastTmpLow;
+        return true;
     }
 
     public boolean deactivateShort() {
-        return candle.getHigh() > lastTmpHigh;
+        return true;
     }
 
     public boolean enterLong() {
-        return mode == MODE_LONG
-                && candle.getClosing() > lastTmpHigh;
+        return false;
     }
 
     public boolean enterShort() {
-        return mode == MODE_SHORT
-                && candle.getClosing() < lastTmpLow;
+        return false;
     }
 
     public boolean exitLong() {
-        return candle.getLow() < lastTmpLow;
+        return true;
     }
 
     public boolean exitShort() {
-        return candle.getHigh() > lastTmpHigh;
+        return true;
     }
 
     public void findSignals() {
