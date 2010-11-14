@@ -22,40 +22,62 @@
  */
 
 
-
-import com.manticore.ui.TradeSystemApplication;
+import com.manticore.system.PropertyManager;
+import javax.swing.JFrame;
+import org.gjt.sp.jedit.Mode;
+import org.gjt.sp.jedit.syntax.ModeProvider;
+import org.gjt.sp.jedit.textarea.StandaloneTextArea;
 
 public class Main {
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-//        try {
-//            // create a script engine manager
-//            ScriptEngineManager factory = new ScriptEngineManager();
-//            // create a JavaScript engine
-//            ScriptEngine engine = factory.getEngineByName("JavaScript");
-//
-//				Iterator<ScriptEngineFactory> iterator= factory.getEngineFactories().iterator();
-//				while (iterator.hasNext()) {
-//					 System.out.println( iterator.next().getLanguageName());
-//				}
-//
-//            // create a Java object
-//            String name = "Tom";
-//            // create the binding
-//            engine.put("greetingname", name);
-//            // evaluate JavaScript code from String
-//            engine.eval("println('Hello, ' + greetingname)");
-//            engine.eval("println('The name length is ' +  greetingname.length)");
+				//        try {
+				//            // create a script engine manager
+				//            ScriptEngineManager factory = new ScriptEngineManager();
+				//            // create a JavaScript engine
+				//            ScriptEngine engine = factory.getEngineByName("JavaScript");
+				//
+				//				Iterator<ScriptEngineFactory> iterator= factory.getEngineFactories().iterator();
+				//				while (iterator.hasNext()) {
+				//					 System.out.println( iterator.next().getLanguageName());
+				//				}
+				//
+				//            // create a Java object
+				//            String name = "Tom";
+				//            // create the binding
+				//            engine.put("greetingname", name);
+				//            // evaluate JavaScript code from String
+				//            engine.eval("println('Hello, ' + greetingname)");
+				//            engine.eval("println('The name length is ' +  greetingname.length)");
+				//TradeSystemApplication tradeSystemApplication = new TradeSystemApplication();
+				//tradeSystemApplication.setVisible(true);
 
-				TradeSystemApplication tradeSystemApplication = new TradeSystemApplication();
-				tradeSystemApplication.setVisible(true);
+				PropertyManager propertyManager=new PropertyManager();
 
-//        } catch (ScriptException ex) {
-//            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+				StandaloneTextArea textArea=new StandaloneTextArea(propertyManager);
+				String text=new StringBuilder()
+						  .append("String s1= new TestJavaClass(\"so\", \"läuft es nicht\").concat();")
+						  .append("String s1= new TestJavaClass(\"so\", \"läuft es nicht\").concat();")
+						  .toString();
+				textArea.setText(text);
+
+				Mode mode=new Mode("groovy");
+				mode.setProperty("file","/home/are/data/src/TradingSystem/src/modes/groovy.xml");
+				ModeProvider.instance.addMode(mode);
+
+				textArea.getBuffer().setStringProperty("mode", "groovy");
+
+				textArea.getBuffer().setMode(mode);
+				textArea.getBuffer().setDirty(true);
+				textArea.setQuickCopyEnabled(true);
+				textArea.setVerifyInputWhenFocusTarget(true);
+
+				textArea.formatParagraph();
+				textArea.updateUI();
+
+				JFrame frame=new JFrame("test");
+				frame.add(textArea);
+				frame.setSize(480, 240);
+				frame.setVisible(true);
 
     }
-
 }
