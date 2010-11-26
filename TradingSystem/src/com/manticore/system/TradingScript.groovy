@@ -6,6 +6,7 @@
 package com.manticore.system;
 import com.manticore.chart.ChartCanvas;
 import com.manticore.position.PositionGrid;
+import org.joda.time.DurationFieldType;
 import java.util.logging.Level;
 
 public class TradingScript extends TradingSimulation {

@@ -22,6 +22,7 @@
  */
 package com.manticore.ui;
 
+import com.manticore.swingui.TextArea;
 import com.manticore.chart.ChartCanvas;
 import com.manticore.database.Quotes;
 import com.manticore.position.PositionGrid;
@@ -210,6 +211,8 @@ public class TradeSystemPanel extends JPanel implements ActionListener {
 		  String content=new StringBuilder()
 					 .append("package com.manticore.system;\n")
 					 .append("import com.manticore.chart.ChartCanvas;\n")
+					 .append("import com.manticore.chart.PeriodSettings;\n")
+					 .append("import org.joda.time.DurationFieldType;\n")
 					 .append("import com.manticore.position.PositionGrid;\n")
 					 .append("import java.util.logging.Level;\n")
 
@@ -229,6 +232,8 @@ public class TradeSystemPanel extends JPanel implements ActionListener {
 		  String content=new StringBuilder()
 					 .append("package com.manticore.system;\n")
 					 .append("import com.manticore.chart.ChartCanvas;\n")
+					 .append("import com.manticore.chart.PeriodSettings;\n")
+					 .append("import org.joda.time.DurationFieldType;\n")
 					 .append("import com.manticore.position.PositionGrid;\n")
 					 .append("import java.util.logging.Level;\n")
 

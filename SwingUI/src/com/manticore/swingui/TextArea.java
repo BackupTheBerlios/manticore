@@ -22,7 +22,7 @@
  */
 
 
-package com.manticore.ui;
+package com.manticore.swingui;
 
 import org.gjt.sp.jedit.Mode;
 import org.gjt.sp.jedit.syntax.ModeProvider;
@@ -34,13 +34,26 @@ import org.gjt.sp.jedit.textarea.StandaloneTextArea;
  */
 public class TextArea extends StandaloneTextArea {
 	 private static final PropertyManager propertyManager=new PropertyManager();
-	 TextArea() {
+	 public TextArea() {
 				super(propertyManager);
 				Mode mode=new Mode("groovy");
 				mode.setProperty("file","/modes/groovy.xml");
 				ModeProvider.instance.addMode(mode);
 
 				getBuffer().setStringProperty("mode", "groovy");
+				getBuffer().setMode(mode);
+				getBuffer().setDirty(true);
+				setQuickCopyEnabled(true);
+				setVerifyInputWhenFocusTarget(true);
+	 }
+
+	 public TextArea(String modeName) {
+				super(propertyManager);
+				Mode mode=new Mode(modeName);
+				mode.setProperty("file","/modes/"+modeName+".xml");
+				ModeProvider.instance.addMode(mode);
+
+				getBuffer().setStringProperty("mode", modeName);
 				getBuffer().setMode(mode);
 				getBuffer().setDirty(true);
 				setQuickCopyEnabled(true);

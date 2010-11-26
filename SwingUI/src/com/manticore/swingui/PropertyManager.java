@@ -22,7 +22,7 @@
  */
 
 
-package com.manticore.ui;
+package com.manticore.swingui;
 
 
 import java.io.IOException;

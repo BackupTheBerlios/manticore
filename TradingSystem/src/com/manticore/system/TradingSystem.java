@@ -113,8 +113,8 @@ public class TradingSystem implements ChangeListener {
     public TradingSystem() {
     }
 
-    public static PeriodSettings getPeriodSettings() {
-        return new PeriodSettings(DurationFieldType.days(), 5, DurationFieldType.days(), 1, DurationFieldType.hours(), 2, DurationFieldType.minutes(), 5);
+    public PeriodSettings getPeriodSettings() {
+        return new PeriodSettings(DurationFieldType.days(), 15, DurationFieldType.days(), 1, DurationFieldType.hours(), 2, DurationFieldType.minutes(), 5);
     }
 
     public static DateTime getDateTimeTo(StockExchange stockExchange) {

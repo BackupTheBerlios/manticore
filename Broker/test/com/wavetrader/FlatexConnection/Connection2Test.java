@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  * @author are
  */
 public class Connection2Test {
-    String orderID="";
+    String orderID="31275639";
 
     public Connection2Test() {
     }
@@ -47,21 +47,21 @@ public class Connection2Test {
      /**
      * Test of getAvailableAmount method, of class Connection2.
      */
-    @Test
-    public void testSearchPaper() {
-        System.out.println("searchPaper");
-        assertTrue(Flatex.getInstance(new TanDialog()).searchPaper("DB03C9"));
-    }
+//    @Test
+//    public void testSearchPaper() {
+//        System.out.println("searchPaper");
+//        assertTrue(Flatex.getInstance(new TanDialog()).searchPaper("DB03C9"));
+//    }
 
      /**
      * Test of getAvailableAmount method, of class Connection2.
      */
-    @Test
-    public void testOrderLimit() {
-        System.out.println("orderLimit");
-        orderID = Flatex.getInstance(new TanDialog()).orderLimit(Flatex.ORDER_BUY, 40L, Flatex.LIMIT_LIMIT, 33.23f, null, Flatex.EXTENSION_NONE);
-        assertTrue(orderID.length()>0);
-    }
+//    @Test
+//    public void testOrderLimit() {
+//        System.out.println("orderLimit");
+//        orderID = Flatex.getInstance(new TanDialog()).orderLimit(Flatex.ORDER_BUY, 40L, Flatex.LIMIT_LIMIT, 33.23f, null, Flatex.EXTENSION_NONE);
+//        assertTrue(orderID.length()>0);
+//    }
 
     /**
      * Test of getAvailableAmount method, of class Connection2.
@@ -81,19 +81,19 @@ public class Connection2Test {
     /**
      * Test of getAvailableAmount method, of class Connection2.
      */
-    @Test
-    public void testCancelOrder() {
-        System.out.println("cancelOrder");
-        try {
-
-            Flatex.getInstance(new TanDialog()).cancelOrder(orderID);
-            assertTrue(Flatex.getInstance(new TanDialog()).getOrderStatus(orderID).contains("gestrichen"));
-        } catch (IOException ex) {
-            Logger.getLogger(Connection2Test.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Connection2Test.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    @Test
+//    public void testCancelOrder() {
+//        System.out.println("cancelOrder");
+//        try {
+//
+//            Flatex.getInstance(new TanDialog()).cancelOrder(orderID);
+//            assertTrue(Flatex.getInstance(new TanDialog()).getOrderStatus(orderID).contains("gestrichen"));
+//        } catch (IOException ex) {
+//            Logger.getLogger(Connection2Test.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(Connection2Test.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
    
 
