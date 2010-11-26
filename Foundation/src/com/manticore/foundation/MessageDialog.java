@@ -26,6 +26,8 @@ import javax.swing.JTextArea;
  * @author are
  */
 public class MessageDialog extends JDialog implements ActionListener {
+    public String title="manticore-trader messages";
+    public String welcome="Welcome to manticore-trader.";
 
     private static MessageDialog instance = null;
     private JTextArea textPane;
@@ -38,32 +40,36 @@ public class MessageDialog extends JDialog implements ActionListener {
         return instance;
     }
 
+    private MessageDialog(String title, String welcome) {
+        this.title=title;
+        this.welcome=welcome;
+        buildDialog();
+    }
+
     private MessageDialog() {
+        buildDialog();
+    }
+
+    private void buildDialog() {
         setLayout(new BorderLayout(6, 6));
         setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        setTitle("manticore-trader messages");
+        setTitle(title);
         setSize(new Dimension(480, 320));
-
         ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("/com/manticore/foundation/logo.png"));
         add(new JLabel(imageIcon), BorderLayout.NORTH);
-
-        textPane = new JTextArea("Welcome to manticore-trader.");
+        textPane = new JTextArea(welcome);
         textPane.setEditable(false);
         textPane.setAutoscrolls(true);
         textPane.setDoubleBuffered(true);
         textPane.setLineWrap(true);
         textPane.setWrapStyleWord(true);
-
         closeButton = new JButton("close");
         closeButton.setActionCommand("CLOSE");
         closeButton.setToolTipText("Close this message dialog.");
         closeButton.addActionListener(this);
-
         add(new JScrollPane(textPane), BorderLayout.CENTER);
-
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING, 24, 6));
         panel.add(closeButton);
-
         add(panel, BorderLayout.SOUTH);
     }
 
