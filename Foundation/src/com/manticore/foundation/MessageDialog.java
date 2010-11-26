@@ -40,13 +40,20 @@ public class MessageDialog extends JDialog implements ActionListener {
         return instance;
     }
 
+    public static MessageDialog getInstance(String title, String welcome) {
+        if (instance == null) {
+            instance = new MessageDialog(title, welcome);
+        }
+        return instance;
+    }
+
     private MessageDialog(String title, String welcome) {
         this.title=title;
         this.welcome=welcome;
         buildDialog();
     }
 
-    private MessageDialog() {
+    public MessageDialog() {
         buildDialog();
     }
 
