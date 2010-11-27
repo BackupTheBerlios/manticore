@@ -25,7 +25,7 @@ package com.manticore.xmarkets;
 import com.manticore.foundation.WaveXXL;
 import com.manticore.parser.WebsiteParser;
 import com.manticore.parser.WebsiteParser.Site;
-import com.manticore.util.HttpClientFactory;
+import com.manticore.http.HttpClientFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.joda.time.MutableDateTime;

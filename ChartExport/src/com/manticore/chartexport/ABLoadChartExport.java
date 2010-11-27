@@ -25,7 +25,7 @@ package com.manticore.chartexport;
 
 import com.manticore.parser.WebsiteParser;
 import com.manticore.parser.WebsiteParser.Site;
-import com.manticore.util.HttpClientFactory;
+import com.manticore.http.HttpClientFactory;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.util.Vector;

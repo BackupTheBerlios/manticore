@@ -22,7 +22,7 @@
  */
 package com.manticore.parser;
 
-import com.manticore.util.HttpClientFactory;
+import com.manticore.http.HttpClientFactory;
 import com.manticore.util.XMLTools;
 import java.io.BufferedReader;
 import java.io.IOException;

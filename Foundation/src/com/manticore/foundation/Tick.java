@@ -22,7 +22,6 @@
  */
 package com.manticore.foundation;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.DecimalDV;
 import java.text.DecimalFormat;
 import java.util.Date;
 import org.joda.time.*;

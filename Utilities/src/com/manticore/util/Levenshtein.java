@@ -12,34 +12,32 @@
  *   See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package com.manticore.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-public class Levenshtein
-{
+public class Levenshtein {
     //****************************
     // Get minimum of three values
     //****************************
 
-    private static int minimum(int a, int b, int c)
-    {
+    private static int minimum(int a, int b, int c) {
         int mi = a;
-        if (b < mi)
+        if (b < mi) {
             mi = b;
-        if (c < mi)
+        }
+        if (c < mi) {
             mi = c;
+        }
         return mi;
     }
 
     //*****************************
     // Compute Levenshtein distance
     //*****************************
-    public static int distance(String s, String t)
-    {
+    public static int distance(String s, String t) {
         int d[][]; // matrix
         int n; // length of s
         int m; // length of t
@@ -52,36 +50,39 @@ public class Levenshtein
         // Step 1
         n = s.length();
         m = t.length();
-        if (n == 0)
+        if (n == 0) {
             return m;
-        if (m == 0)
+        }
+        if (m == 0) {
             return n;
-        d = new int[n+1][m+1];
+        }
+        d = new int[n + 1][m + 1];
 
         // Step 2
-        for (i = 0; i <= n; i++)
+        for (i = 0; i <= n; i++) {
             d[i][0] = i;
-        for (j = 0; j <= m; j++)
+        }
+        for (j = 0; j <= m; j++) {
             d[0][j] = j;
+        }
 
         // Step 3
-        for (i = 1; i <= n; i++)
-        {
-            s_i = s.charAt (i - 1);
+        for (i = 1; i <= n; i++) {
+            s_i = s.charAt(i - 1);
 
             // Step 4
-            for (j = 1; j <= m; j++)
-            {
+            for (j = 1; j <= m; j++) {
                 t_j = t.charAt(j - 1);
 
                 // Step 5
-                if (s_i == t_j)
+                if (s_i == t_j) {
                     cost = 0;
-                else
+                } else {
                     cost = 1;
+                }
 
                 // Step 6
-                d[i][j] = minimum(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1] + cost);
+                d[i][j] = minimum(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
             }
         }
 
@@ -89,97 +90,96 @@ public class Levenshtein
         return d[n][m];
     }
 
-	  public static StringPair findBestMatch(String s, ArrayList<String> stringArrayList) {
-		  Iterator<String> iterator=stringArrayList.iterator();
-		  TreeSet<StringPair> treeSet=new TreeSet<StringPair>();
+    public static StringPair findBestMatch(String s, ArrayList<String> stringArrayList) {
+        Iterator<String> iterator = stringArrayList.iterator();
+        TreeSet<StringPair> treeSet = new TreeSet<StringPair>();
 
-		  while (iterator.hasNext()) {
-				StringPair stringPair=new StringPair(s, iterator.next());
-				treeSet.add(stringPair);
-		  }
+        while (iterator.hasNext()) {
+            StringPair stringPair = new StringPair(s.toLowerCase(), iterator.next().toLowerCase());
+            treeSet.add(stringPair);
+        }
 
-		  return treeSet.first();
-	 }
-
+        return treeSet.first();
+    }
 }
 
 /* faster ???
  *
-        public float Distance(string s1, string s2, int maxOffset)
+public float Distance(string s1, string s2, int maxOffset)
 
-        {
+{
 
-            if (String.IsNullOrEmpty(s1))
+if (String.IsNullOrEmpty(s1))
 
-                return
+return
 
-                    String.IsNullOrEmpty(s2) ? 0 : s2.Length;
+String.IsNullOrEmpty(s2) ? 0 : s2.Length;
 
-            if (String.IsNullOrEmpty(s2))
+if (String.IsNullOrEmpty(s2))
 
-                return s1.Length;
+return s1.Length;
 
-            int c = 0;
+int c = 0;
 
-            int offset1 = 0;
+int offset1 = 0;
 
-            int offset2 = 0;
+int offset2 = 0;
 
-            int lcs = 0;
+int lcs = 0;
 
-            while ((c + offset1 < s1.Length)
+while ((c + offset1 < s1.Length)
 
-                   && (c + offset2 < s2.Length))
+&& (c + offset2 < s2.Length))
 
-            {
+{
 
-                if (s1[c + offset1] == s2[c + offset2]) lcs++;
+if (s1[c + offset1] == s2[c + offset2]) lcs++;
 
-                else
+else
 
-                {
+{
 
-                    offset1 = 0;
+offset1 = 0;
 
-                    offset2 = 0;
+offset2 = 0;
 
-                    for (int i = 0; i < maxOffset; i++)
+for (int i = 0; i < maxOffset; i++)
 
-                    {
+{
 
-                        if ((c + i < s1.Length)
+if ((c + i < s1.Length)
 
-                            && (s1[c + i] == s2[c]))
+&& (s1[c + i] == s2[c]))
 
-                        {
+{
 
-                            offset1 = i;
+offset1 = i;
 
-                            break;
+break;
 
-                        }
+}
 
-                        if ((c + i < s2.Length)
+if ((c + i < s2.Length)
 
-                            && (s1[c] == s2[c + i]))
+&& (s1[c] == s2[c + i]))
 
-                        {
+{
 
-                            offset2 = i;
+offset2 = i;
 
-                            break;
+break;
 
-                        }
+}
 
-                    }
+}
 
-                }
+}
 
-                c++;
+c++;
 
-            }
+}
 
-            return (s1.Length + s2.Length)/2 - lcs;
+return (s1.Length + s2.Length)/2 - lcs;
 
-        }
+}
  */

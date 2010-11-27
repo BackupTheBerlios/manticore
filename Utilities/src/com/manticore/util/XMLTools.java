@@ -31,7 +31,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ListIterator;
@@ -49,9 +48,6 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 public class XMLTools {
 
@@ -96,16 +92,9 @@ public class XMLTools {
 		  SAXReader saxReader = new SAXReader(false);
         saxReader.setEncoding("UTF-8");
 
-		  URL url=new URL(Filename);
-		  if (url.getProtocol().equalsIgnoreCase("file")) {
+		 
 				document=saxReader.read(Filename);
-		  } else {
-				DefaultHttpClient client=HttpClientFactory.getClient();
-				HttpGet get=new HttpGet(Filename);
-				HttpResponse response=client.execute(get);
-				document=saxReader.read(response.getEntity().getContent());
-				get.abort();
-		  }
+		  
 		  
         return document;
     }
@@ -131,28 +120,7 @@ public class XMLTools {
         return doc;
     }
 
-    public static Document parseHtml(String UrlStr) throws SAXException, DocumentException, IOException {
-        String ParserClassname = "org.ccil.cowan.tagsoup.Parser";
-        String NamespaceStr = "http://www.w3.org/1999/xhtml";
-		  Document document=null;
-
-        // use tagsoup-parser
-        XMLReader parser = XMLReaderFactory.createXMLReader(ParserClassname);
-        SAXReader saxReader = new SAXReader(parser, false);
-        saxReader.setEncoding("UTF-8");
-
-		  DefaultHttpClient client=HttpClientFactory.getClient();
-		  HttpGet get=new HttpGet(UrlStr);
-
-		  HttpResponse response=client.execute(get);
-		  InputStream inStream=response.getEntity().getContent();
-		  document=saxReader.read(inStream);
-		  get.abort();
-
-        return document;
-    }
-
-    public static Document parseHtml(InputStream inputStream) throws SAXException, DocumentException {
+   public static Document parseHtml(InputStream inputStream) throws SAXException, DocumentException {
         String ParserClassname = "org.ccil.cowan.tagsoup.Parser";
         String NamespaceStr = "http://www.w3.org/1999/xhtml";
 

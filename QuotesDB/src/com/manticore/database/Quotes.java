@@ -50,7 +50,7 @@ import com.manticore.foundation.PositionDataStorage;
 import com.manticore.foundation.TanReader;
 import com.manticore.util.Settings;
 import com.manticore.foundation.TimeMarker;
-import com.manticore.util.HttpClientFactory;
+import com.manticore.http.HttpClientFactory;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.net.URL;

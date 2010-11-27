@@ -27,7 +27,7 @@ import com.manticore.foundation.TanReader;
 import com.manticore.foundation.Transaction;
 import com.manticore.parser.WebsiteParser;
 import com.manticore.parser.WebsiteParser.Site;
-import com.manticore.util.HttpClientFactory;
+import com.manticore.http.HttpClientFactory;
 import com.manticore.util.Settings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
