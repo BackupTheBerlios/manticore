@@ -25,6 +25,7 @@ package com.manticore.portfolio;
 
 import com.manticore.util.XMLTools;
 import com.manticore.foundation.Instrument;
+import com.manticore.http.HttpXMLTools;
 import java.util.TreeMap;
 import java.util.Vector;
 import java.util.concurrent.Semaphore;
@@ -63,7 +64,7 @@ public class PageDataImportThread extends Thread {
                 Page page=pageVector.get(i);
                 String urlStr=page.urlStr.concat(instrument.getWkn());
 
-                Document document=XMLTools.parseHtml(urlStr);
+                Document document=HttpXMLTools.parseHtml(urlStr);
                 //XMLTools.writeToXML(document, "/tmp/" + page.name + ".xml");
 
                 for (int k=0; k<page.size(); k++) {

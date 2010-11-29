@@ -25,6 +25,7 @@ package com.manticore.portfolio;
 
 import com.manticore.util.XMLTools;
 import com.manticore.database.Quotes;
+import com.manticore.http.HttpXMLTools;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class ImportThread extends Thread {
         try {
             semaphore.acquire();
 
-            Document document = XMLTools.parseHtml(urlStr);
+            Document document = HttpXMLTools.parseHtml(urlStr);
             Node node=document.selectSingleNode(xpathStr);
 
             if (node==null) {

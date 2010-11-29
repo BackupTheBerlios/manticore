@@ -23,6 +23,7 @@
 package com.manticore.parser;
 
 import com.manticore.http.HttpClientFactory;
+import com.manticore.http.HttpXMLTools;
 import com.manticore.util.XMLTools;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -453,7 +454,7 @@ public class WebsiteParser {
             Document document = null;
             String finalUrlStr = getFinalUrlStr(parameterList);
             try {
-                document = XMLTools.parseHtml(finalUrlStr);
+                document = HttpXMLTools.parseHtml(finalUrlStr);
 
                 if (writeTempXMLFiles) logger.info(XMLTools.writeTempXMLFile(document));
 
